@@ -32,12 +32,30 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity top is
---  Port ( );
+    port(
+        clk1 : in STD_LOGIC;
+        clk2 : in STD_LOGIC
+    );
 end top;
 
 architecture Behavioral of top is
 
-begin
+    -- components
+    -- functinos
+    -- constants
+    -- signals
+    signal sig_test : STD_LOGIC;
 
+begin
+    -- not clocked
+    -- instantiate components
+
+    -- clocked
+    process(clk1)
+    begin
+        if rising_edge(clk1) then
+            sig_test <= clk1 and clk2; 
+        end if; -- clk1 rising edge
+    end process;
 
 end Behavioral;
