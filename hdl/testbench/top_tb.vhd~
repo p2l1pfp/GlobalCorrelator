@@ -1,0 +1,27 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity top_tb is
+end top_tb;
+
+architecture Behavioral of top_tb is
+
+  component top
+        port(
+                  clk1 : in STD_LOGIC;
+                          clk2 : in STD_LOGIC
+                              );
+
+begin
+    -- not clocked
+    -- instantiate components
+
+    -- clocked
+    process(clk1)
+    begin
+    
+        sig_test <= clk1 and clk2; 
+    
+    end process;
+
+end Behavioral;
