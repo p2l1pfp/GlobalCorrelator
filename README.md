@@ -12,7 +12,7 @@ vivado ParticeFlow/ParticeFlow.xpr &
 ```
 
 ## Running the Simulation
-From the Flow Navigator, selection Run Simulation.
+From the Flow Navigator, select Run Simulation.
 
 ## Updating the Project
 You can edit the VHDL in the Vivado GUI or in your favorite Unix text editor.
