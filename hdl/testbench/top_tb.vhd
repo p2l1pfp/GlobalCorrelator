@@ -51,7 +51,7 @@ begin
   -- Data in from text file
   sim_data_reader: entity work.FILE_READ
     generic map(
-      --stim_file => "/home/kreis/git_test/ParticleFlow/hdl/testbench/data1.dat",
+      --stim_file => "/home/kreis/git_test/GlobalCorrelator/hdl/testbench/data1.dat",
       stim_file => "data1.dat",
       BIT_WIDTH => 36
       )

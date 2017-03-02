@@ -27,12 +27,12 @@
 #
 # 3. The following remote source files that were added to the original project:-
 #
-#    "/home/kreis/git/ParticleFlow/hdl/test_algo.vhd"
-#    "/home/kreis/git/ParticleFlow/hdl/top.vhd"
-#    "/home/kreis/git/ParticleFlow/hdl/testbench/txt_util.vhd"
-#    "/home/kreis/git/ParticleFlow/hdl/testbench/sim_file_read.vhd"
-#    "/home/kreis/git/ParticleFlow/hdl/testbench/top_tb.vhd"
-#    "/home/kreis/git/ParticleFlow/hdl/testbench/data1.dat"
+#    "/home/kreis/git/GlobalCorrelator/hdl/test_algo.vhd"
+#    "/home/kreis/git/GlobalCorrelator/hdl/top.vhd"
+#    "/home/kreis/git/GlobalCorrelator/hdl/testbench/txt_util.vhd"
+#    "/home/kreis/git/GlobalCorrelator/hdl/testbench/sim_file_read.vhd"
+#    "/home/kreis/git/GlobalCorrelator/hdl/testbench/top_tb.vhd"
+#    "/home/kreis/git/GlobalCorrelator/hdl/testbench/data1.dat"
 #
 #*****************************************************************************************
 
@@ -40,16 +40,16 @@
 set origin_dir "."
 
 # Set the directory path for the original project from where this script was exported
-set orig_proj_dir "[file normalize "$origin_dir/ParticeFlow"]"
+set orig_proj_dir "[file normalize "$origin_dir/GlobalCorrelator"]"
 
 # Create project
-create_project ParticeFlow ./ParticeFlow
+create_project GlobalCorrelator ./GlobalCorrelator
 
 # Set the directory path for the new project
 set proj_dir [get_property directory [current_project]]
 
 # Set project properties
-set obj [get_projects ParticeFlow]
+set obj [get_projects GlobalCorrelator]
 set_property "default_lib" "xil_defaultlib" $obj
 set_property "part" "xc7vx690tffg1930-2" $obj
 set_property "simulator_language" "VHDL" $obj
@@ -177,4 +177,4 @@ set_property "steps.write_bitstream.args.verbose" "0" $obj
 # set the current impl run
 current_run -implementation [get_runs impl_1]
 
-puts "INFO: Project created:ParticeFlow"
+puts "INFO: Project created:GlobalCorrelator"
