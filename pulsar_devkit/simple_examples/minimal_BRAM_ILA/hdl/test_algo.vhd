@@ -13,6 +13,7 @@ end test_algo;
 architecture Behavioral of test_algo is
 
     signal bram_to_hls : STD_LOGIC_VECTOR(63 downto 0);
+    signal hls_to_ila : STD_LOGIC_VECTOR(31 downto 0);
 --    attribute mark_debug : string;
 --    attribute mark_debug of bram_to_hls : signal is "true"; 
 
@@ -25,6 +26,16 @@ architecture Behavioral of test_algo is
         douta : OUT STD_LOGIC_VECTOR(63 DOWNTO 0));
     end component;
 
+    component simple_algo_hw_0
+    port( outA_V_ap_vld : OUT STD_LOGIC;
+        ap_start : IN STD_LOGIC;
+        ap_done : OUT STD_LOGIC;
+        ap_idle : OUT STD_LOGIC;
+        ap_ready : OUT STD_LOGIC;
+        inA_V : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+        inB_V : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+        outA_V : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
+    end component;
 
 begin
 
@@ -49,5 +60,17 @@ begin
                 addra => "0",
                 dina  => x"0000000000000000", 
                 douta => bram_to_hls);
+
+    my_hls_label : simple_algo_hw_0
+        PORT MAP(
+                outA_V_ap_vld => open,
+                ap_start => '1',
+                ap_done => open,
+                ap_idle => open,
+                ap_ready => open,
+                inA_V => bram_to_hls(63 downto 32),
+                inB_V => bram_to_hls(31 downto 0),
+                outA_V => hls_to_ila);
+                
     
 end Behavioral;
