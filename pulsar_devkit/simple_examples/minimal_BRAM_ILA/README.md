@@ -1,6 +1,6 @@
 # GlobalCorrelator
 
-Vivado project for developing Particle Flow and Fast PUPPI firmware for CMS Global Correlator
+Minimal project to test an example HLS IP.  A block RAM with values filled from a coe init-file are provided to the HLS IP.  The output is watched with ILA.
 
 ## Opening the Project 
 The project is built on the fly from a Tcl script.  
