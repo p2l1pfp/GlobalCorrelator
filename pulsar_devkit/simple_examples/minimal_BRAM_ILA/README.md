@@ -17,7 +17,7 @@ The project is built on the fly from a Tcl script.
 After setting up Vivado (settings and licenses), do:
 ```
 vivado -mode batch -source build.tcl
-vivado GlobalCorrelator/GlobalCorrelator.xpr &
+vivado top/top.xpr &
 ```
 
 ## Running the Simulation
