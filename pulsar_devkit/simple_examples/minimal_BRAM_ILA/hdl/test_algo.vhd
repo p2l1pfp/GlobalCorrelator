@@ -26,7 +26,7 @@ architecture Behavioral of test_algo is
         douta : OUT STD_LOGIC_VECTOR(63 DOWNTO 0));
     end component;
 
-    component simple_algo_hw
+    component simple_algo_hw_0
     port( outA_V_ap_vld : OUT STD_LOGIC;
         ap_start : IN STD_LOGIC;
         ap_done : OUT STD_LOGIC;
@@ -61,7 +61,7 @@ begin
                 dina  => x"0000000000000000", 
                 douta => bram_to_hls);
 
-    my_hls_label : simple_algo_hw
+    my_hls_label : simple_algo_hw_0
         PORT MAP(
                 outA_V_ap_vld => open,
                 ap_start => '1',
