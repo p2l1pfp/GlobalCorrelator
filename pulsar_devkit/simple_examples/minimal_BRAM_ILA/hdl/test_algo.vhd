@@ -37,6 +37,13 @@ architecture Behavioral of test_algo is
         outA_V : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
     end component;
 
+    component ila_0
+    port(clk : IN STD_LOGIC;
+        probe0 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+        probe1 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+        probe2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0));
+    end component;
+
 begin
 
     --data_out <= x"00000000";
@@ -71,6 +78,13 @@ begin
                 inA_V => bram_to_hls(63 downto 32),
                 inB_V => bram_to_hls(31 downto 0),
                 outA_V => hls_to_ila);
-                
+    
+    my_ila_label : ila_0
+        PORT MAP(
+                clk => clk1,
+                probe0 => bram_to_hls(63 downto 32),
+                probe1 => bram_to_hls(31 downto 0),
+                probe2 => hls_to_ila);
+                    
     
 end Behavioral;

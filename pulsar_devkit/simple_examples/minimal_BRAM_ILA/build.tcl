@@ -49,6 +49,7 @@ set files [list \
  "[file normalize "$origin_dir/hdl/top.vhd"]"\
  "[file normalize "$origin_dir/cgn/my_coe.coe"]"\
  "[file normalize "$origin_dir/cgn/blk_mem_gen_0/blk_mem_gen_0.xci"]"\
+ "[file normalize "$origin_dir/cgn/ila_0/ila_0.xci"]"\
 ]
 add_files -norecurse -fileset $obj $files
 
