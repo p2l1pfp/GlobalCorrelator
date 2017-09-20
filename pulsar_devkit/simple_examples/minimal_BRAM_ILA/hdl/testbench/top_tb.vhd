@@ -7,7 +7,7 @@ end top_tb;
 architecture Behavioral of top_tb is
 
   -- Component for unit under test
-  component top
+  component test_algo
     port(
       clk1 : in STD_LOGIC;
       clk2 : in STD_LOGIC;
@@ -34,10 +34,11 @@ architecture Behavioral of top_tb is
 begin
 
   -- Instantiate unit under test 
-  uut : top port map (
+  uut : test_algo port map (
     clk1 => clk1,
     clk2 => clk2,
-    data_in => data_in
+    data_in => data_in,
+    data_out => open
     );
 
   clk1 <= not clk1 after clk1_period;

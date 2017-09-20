@@ -6,7 +6,7 @@
 set origin_dir "."
 
 # Create project
-create_project top ./top -part xc7vx690tffg1930-2
+create_project top ./top -part xc7vx690tffg1927-2
 
 # Set the directory path for the new project
 set proj_dir [get_property directory [current_project]]
@@ -15,7 +15,7 @@ set proj_dir [get_property directory [current_project]]
 set obj [get_projects top]
 set_property "default_lib" "xil_defaultlib" $obj
 set_property "generate_ip_upgrade_log" "0" $obj
-set_property "part" "xc7vx690tffg1930-2" $obj
+set_property "part" "xc7vx690tffg1927-2" $obj
 set_property "sim.ip.auto_export_scripts" "1" $obj
 set_property "simulator_language" "VHDL" $obj
 set_property "target_language" "VHDL" $obj

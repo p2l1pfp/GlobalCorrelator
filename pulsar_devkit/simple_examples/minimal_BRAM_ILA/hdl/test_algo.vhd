@@ -59,7 +59,7 @@ begin
     end process;
 
     
-    componentlabel : blk_mem_gen_0
+    my_bram_label : blk_mem_gen_0
         PORT MAP(
                 clka  => clk1, 
                 ena   => '1',
