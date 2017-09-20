@@ -13,9 +13,9 @@ use UNISIM.VComponents.all;
 entity top is
     port(
         sys_clk_n : in STD_LOGIC;
-        sys_clk_p : in STD_LOGIC;
-        data_in   : in STD_LOGIC_VECTOR(31 downto 0);
-        data_out  : out STD_LOGIC_VECTOR(31 downto 0)
+        sys_clk_p : in STD_LOGIC
+        --data_in   : in STD_LOGIC_VECTOR(31 downto 0);
+        --data_out  : out STD_LOGIC_VECTOR(31 downto 0)
     );
 end top;
 
@@ -44,8 +44,8 @@ begin
         port map(
             clk1 => sys_clk_bufg,
             clk2 => sys_clk_bufg, -- just same clk for now
-            data_in => data_in,
-            data_out => data_out
+            data_in => x"00000000",
+            data_out => open
         );
 
 
