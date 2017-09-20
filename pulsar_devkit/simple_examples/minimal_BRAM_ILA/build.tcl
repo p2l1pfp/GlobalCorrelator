@@ -58,10 +58,24 @@ set obj [get_filesets sources_1]
 set_property "top" "top" $obj
 
 ###########################################################################
-# Create 'constrs_1' fileset (if not found), but there are no constraints to worry about for the moment
+# Create 'constrs_1' fileset (if not found)
 if {[string equal [get_filesets -quiet constrs_1] ""]} {
   create_fileset -constrset constrs_1
 }
+
+# Set 'constrs_1' fileset object
+set obj [get_filesets constrs_1]
+
+# Add/Import constrs file and set constrs file properties
+set file "[file normalize "$origin_dir/xdc/constraints.xdc"]"
+set file_added [add_files -norecurse -fileset $obj $file]
+set file "$origin_dir/xdc/constraints.xdc"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
+set_property "file_type" "XDC" $file_obj
+
+# Set 'constrs_1' fileset properties
+set obj [get_filesets constrs_1]
 
 ###########################################################################
 # Declaring Sim files
