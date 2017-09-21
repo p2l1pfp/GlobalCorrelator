@@ -14,9 +14,9 @@ add_files -tb simple_algo_ref.cpp
 # reset the solution
 open_solution -reset "solution1"
 #set_part {xcku9p-ffve900-2-i-EVAL}
-#set_part {xc7vx690tffg1927-2}
+set_part {xc7vx690tffg1927-2}
 #set_part {xcku5p-sfvb784-3-e}
-set_part {xcku115-flvf1924-2-i}
+#set_part {xcku115-flvf1924-2-i}
 create_clock -period 5 -name default
 #source "./nb1/solution1/directives.tcl"
 
@@ -24,7 +24,7 @@ create_clock -period 5 -name default
 csim_design
 csynth_design
 #cosim_design -trace_level all
-export_design -format ip_catalog
+export_design -format ip_catalog  -vendor "cern-cms"
 
 # exit Vivado HLS
 exit
