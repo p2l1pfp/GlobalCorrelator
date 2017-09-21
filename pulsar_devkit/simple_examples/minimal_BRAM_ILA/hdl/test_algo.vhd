@@ -14,6 +14,8 @@ architecture Behavioral of test_algo is
 
     signal bram_to_hls : STD_LOGIC_VECTOR(63 downto 0);
     signal hls_to_ila : STD_LOGIC_VECTOR(31 downto 0);
+    signal bram_address : STD_LOGIC_VECTOR(0 downto 0) := "0";
+    
 --    attribute mark_debug : string;
 --    attribute mark_debug of bram_to_hls : signal is "true"; 
 
@@ -51,8 +53,15 @@ begin
     process(clk1)
     begin
         if rising_edge(clk1) then
-            
-            --actually, nothing to do here at the moment
+           
+            --generate an address, just toggling between 1 and 0 
+            -- (the current bram only has two addresses)
+            if( bram_address = "1") then 
+                bram_address <= "0"; 
+            else
+                bram_address <= "1";
+            end if;
+           
             data_out <= bram_to_hls(31 downto 0);
 
         end if; -- clk1 rising edge
@@ -64,7 +73,7 @@ begin
                 clka  => clk1, 
                 ena   => '1',
                 wea   => "0", 
-                addra => "0",
+                addra => bram_address,
                 dina  => x"0000000000000000", 
                 douta => bram_to_hls);
 
