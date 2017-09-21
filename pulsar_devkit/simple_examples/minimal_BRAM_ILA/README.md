@@ -6,7 +6,7 @@ _n.b. this runs in Vivado 2016.2 right now because the BRAM IP was built in that
 
 _This current example can be run on the Pulsar with part number: xc7vx690tffg1927-2.  
 You also need to know the clock pins for your setup.  Pulsar has a 200 MHz LVDS on pins AU15 (+) and AV15 (-).
-This is defined in the `xdx/constraints.xdc` file_
+This is defined in the `xdc/constraints.xdc` file_
 
 ## Preparing the HLS IP
 ```
