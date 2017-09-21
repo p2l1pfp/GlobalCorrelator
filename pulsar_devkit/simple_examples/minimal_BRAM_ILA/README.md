@@ -4,6 +4,10 @@ Minimal project to test an example HLS IP.  A block RAM with values filled from 
 
 _n.b. this runs in Vivado 2016.2 right now because the BRAM IP was built in that version_
 
+_This current example can be run on the Pulsar with part number: xc7vx690tffg1927-2.  
+You also need to know the clock pins for your setup.  Pulsar has a 200 MHz LVDS on pins AU15 (+) and AV15 (-).
+This is defined in the `xdx/constraints.xdc` file_
+
 ## Preparing the HLS IP
 ```
 cd ../HLSIPs
@@ -20,9 +24,31 @@ vivado -mode batch -source build.tcl
 vivado top/top.xpr &
 ```
 
-## Running the Simulation
+## Running the Synthesis/Implementation
 From the Flow Navigator, select `Run Synthesis`.
-From the Flow Navigator, select `Run Simulation`.
+From the Flow Navigator, select `Run Implementation` then generate bitfile.
+
+Alternatively, you can add this to the bottom of the `build.tcl` to get the bit file directly with these lines:
+```
+update_compile_order -fileset sources_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+```
+
+This will make two files you will need:
+`top/top.runs/impl_1/top.bit`
+`top/top.runs/impl_1/debug_nets.ltx`
+
+## Running on the Pulsar board
+
+   * Power on board, connect JTAG
+   * Open up Vivado, "Open Hardware Manager"
+   * Under the "Hardware window" push "autoconnect", you should see your device in the list "xc7vx..."
+   * Right click on the device and choose "Program Device...", choose the `top.bit` and `debug_nets.ltx` files that were created in the last step.  When the device is programmed, you should see as one of the IPs `hw_ila_1`
+   * Et voila!  You should see traces as seen by `hw_ila_1`
 
 ## Updating the Project
 You can edit the VHDL in the Vivado GUI or in your favorite Unix text editor.
