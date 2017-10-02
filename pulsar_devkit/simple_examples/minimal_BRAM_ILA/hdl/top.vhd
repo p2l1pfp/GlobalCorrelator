@@ -22,7 +22,7 @@ end top;
 architecture Behavioral of top is
 
     -- components
-    component test_algo
+    component test_algo_mt
         port(
             clk1 : in STD_LOGIC;
             clk2 : in STD_LOGIC;
@@ -40,7 +40,7 @@ architecture Behavioral of top is
 begin
    
     -- instantiate components
-    my_test_algo : test_algo
+    my_test_algo : test_algo_mt
         port map(
             clk1 => sys_clk_bufg,
             clk2 => sys_clk_bufg, -- just same clk for now

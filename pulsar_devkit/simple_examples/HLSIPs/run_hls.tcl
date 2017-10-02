@@ -6,10 +6,20 @@
 
 # open the project, don't forget to reset
 open_project -reset proj0
-set_top simple_algo_hw
-add_files src/simple_algo.cpp
-add_files -tb simple_algo_test.cpp 
-add_files -tb simple_algo_ref.cpp
+#set_top simple_algo_hw
+#add_files src/simple_algo.cpp
+#add_files -tb simple_algo_test.cpp 
+#add_files -tb simple_algo_ref.cpp
+
+set_top simple_algo_mt_hw
+add_files src/simple_algo_mt.cpp
+add_files -tb simple_algo_mt_test.cpp 
+add_files -tb simple_algo_mt_ref.cpp
+
+#set_top simple_algo_add4vec_hw
+#add_files src/simple_algo_add4vec.cpp
+#add_files -tb simple_algo_add4vec_test.cpp 
+#add_files -tb simple_algo_add4vec_ref.cpp
 
 # reset the solution
 open_solution -reset "solution1"
