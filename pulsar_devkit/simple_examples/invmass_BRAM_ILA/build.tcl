@@ -6,7 +6,7 @@
 set origin_dir "."
 
 # Create project
-create_project top ./top -part xc7vx690tffg1927-2
+create_project -force top ./top -part xc7vx690tffg1927-2
 
 # Set the directory path for the new project
 set proj_dir [get_property directory [current_project]]
@@ -26,13 +26,19 @@ set_property "xpm_libraries" "XPM_MEMORY" $obj
 set_property  ip_repo_paths user_ip_repo [current_project]
 file mkdir user_ip_repo
 update_ip_catalog -rebuild
-update_ip_catalog -add_ip "$origin_dir/../HLSIPs/proj0/solution1/impl/ip/cern-cms_hls_simple_algo_hw_1_0.zip" -repo_path user_ip_repo
+update_ip_catalog -add_ip "$origin_dir/../HLSIPs/proj0/solution1/impl/ip/cern-cms_hls_simple_algo_mt_hw_1_0.zip" -repo_path user_ip_repo
 
-create_ip -name simple_algo_hw -vendor "cern-cms" -library hls -module_name simple_algo_hw_0
-generate_target {instantiation_template} [get_files top/top.srcs/sources_1/ip/simple_algo_hw_0/simple_algo_hw_0.xci]
-generate_target all [get_files top/top.srcs/sources_1/ip/simple_algo_hw_0/simple_algo_hw_0.xci]
-export_ip_user_files -of_objects [get_files top/top.srcs/sources_1/ip/simple_algo_hw_0/simple_algo_hw_0.xci] -no_script -force -quiet
-create_ip_run [get_files -of_objects [get_fileset sources_1] top/top.srcs/sources_1/ip/simple_algo_hw_0/simple_algo_hw_0.xci]
+#create_ip -name simple_algo_hw -vendor "cern-cms" -library hls -module_name simple_algo_hw_0
+#generate_target {instantiation_template} [get_files top/top.srcs/sources_1/ip/simple_algo_hw_0/simple_algo_hw_0.xci]
+#generate_target all [get_files top/top.srcs/sources_1/ip/simple_algo_hw_0/simple_algo_hw_0.xci]
+#export_ip_user_files -of_objects [get_files top/top.srcs/sources_1/ip/simple_algo_hw_0/simple_algo_hw_0.xci] -no_script -force -quiet
+#create_ip_run [get_files -of_objects [get_fileset sources_1] top/top.srcs/sources_1/ip/simple_algo_hw_0/simple_algo_hw_0.xci]
+
+create_ip -name simple_algo_mt_hw -vendor "cern-cms" -library hls -module_name simple_algo_mt_hw_0
+generate_target {instantiation_template} [get_files top/top.srcs/sources_1/ip/simple_algo_mt_hw_0/simple_algo_mt_hw_0.xci]
+generate_target all [get_files top/top.srcs/sources_1/ip/simple_algo_mt_hw_0/simple_algo_mt_hw_0.xci]
+export_ip_user_files -of_objects [get_files top/top.srcs/sources_1/ip/simple_algo_mt_hw_0/simple_algo_mt_hw_0.xci] -no_script -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] top/top.srcs/sources_1/ip/simple_algo_mt_hw_0/simple_algo_mt_hw_0.xci]
 
 ###########################################################################
 # Declaring source files
@@ -45,7 +51,7 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- "[file normalize "$origin_dir/hdl/test_algo.vhd"]"\
+ "[file normalize "$origin_dir/hdl/test_algo_mt.vhd"]"\
  "[file normalize "$origin_dir/hdl/top.vhd"]"\
  "[file normalize "$origin_dir/cgn/my_coe.coe"]"\
  "[file normalize "$origin_dir/cgn/blk_mem_gen_0/blk_mem_gen_0.xci"]"\
