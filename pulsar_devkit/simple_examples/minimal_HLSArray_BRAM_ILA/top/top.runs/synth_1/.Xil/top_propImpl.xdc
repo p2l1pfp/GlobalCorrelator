@@ -1,0 +1,5 @@
+set_property SRC_FILE_INFO {cfile:/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/xdc/constraints.xdc rfile:../../../../xdc/constraints.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:1 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN AU15 [get_ports sys_clk_p]
+set_property src_info {type:XDC file:1 line:2 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN AV15 [get_ports sys_clk_n]

@@ -1,0 +1,67 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1756540 on Mon Jan 23 19:11:19 MST 2017
+# IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+# Start of session at: Tue Oct 10 15:12:12 2017
+# Process ID: 21065
+# Current directory: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA
+# Command line: vivado top/top.xpr
+# Log file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/vivado.log
+# Journal file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project top/top.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/user_ip_repo'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/ttuser/Vivado_HLS/Vivado/2016.4/data/ip'.
+open_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:15 . Memory (MB): peak = 6008.691 ; gain = 123.797 ; free physical = 17899 ; free virtual = 34648
+launch_runs synth_1 -jobs 6
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/cgn/blk_mem_gen_0/blk_mem_gen_0.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/cgn/ila_0/ila_0.xci' is already up-to-date
+INFO: [HDL 9-1061] Parsing VHDL file "/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd" into library xil_defaultlib [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:1]
+INFO: [HDL 9-1061] Parsing VHDL file "/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/top.vhd" into library xil_defaultlib [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/top.vhd:1]
+[Tue Oct 10 15:13:17 2017] Launched simple_algo_array_hw_0_synth_1...
+Run output will be captured here: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/simple_algo_array_hw_0_synth_1/runme.log
+[Tue Oct 10 15:13:17 2017] Launched synth_1...
+Run output will be captured here: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 6
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/cgn/blk_mem_gen_0/blk_mem_gen_0.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/cgn/ila_0/ila_0.xci' is already up-to-date
+[Tue Oct 10 15:16:52 2017] Launched impl_1...
+Run output will be captured here: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/cgn/blk_mem_gen_0/blk_mem_gen_0.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/cgn/ila_0/ila_0.xci' is already up-to-date
+[Tue Oct 10 15:20:23 2017] Launched impl_1...
+Run output will be captured here: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/runme.log
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2016.4
+  **** Build date : Jan 23 2017-19:28:34
+    ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/usb1.8
+set_property PROGRAM.FILE {/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/top.bit} [lindex [get_hw_devices xc7vx690t_0] 0]
+set_property PROBES.FILE {/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices xc7vx690t_0] 0]
+current_hw_device [lindex [get_hw_devices xc7vx690t_0] 0]
+refresh_hw_device [lindex [get_hw_devices xc7vx690t_0] 0]
+INFO: [Labtools 27-2302] Device xc7vx690t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7vx690t_0] -filter {CELL_NAME=~"my_test_algo/my_ila_label"}]]
+INFO: [Labtools 27-3304] ILA Waveform data saved to file /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+set_property PROBES.FILE {/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices xc7vx690t_0] 0]
+set_property PROGRAM.FILE {/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/top.bit} [lindex [get_hw_devices xc7vx690t_0] 0]
+program_hw_devices [lindex [get_hw_devices xc7vx690t_0] 0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+program_hw_devices: Time (s): cpu = 00:01:05 ; elapsed = 00:01:01 . Memory (MB): peak = 6327.355 ; gain = 0.000 ; free physical = 17707 ; free virtual = 34493
+refresh_hw_device [lindex [get_hw_devices xc7vx690t_0] 0]
+INFO: [Labtools 27-2302] Device xc7vx690t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+exit
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 10 15:42:26 2017...

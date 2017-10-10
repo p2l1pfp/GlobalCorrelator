@@ -1,0 +1,31 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1756540 on Mon Jan 23 19:11:19 MST 2017
+# IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+# Start of session at: Tue Oct 10 15:12:12 2017
+# Process ID: 21065
+# Current directory: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA
+# Command line: vivado top/top.xpr
+# Log file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/vivado.log
+# Journal file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project top/top.xpr
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+launch_runs impl_1 -jobs 6
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+open_hw
+connect_hw_server
+open_hw_target
+set_property PROGRAM.FILE {/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/top.bit} [lindex [get_hw_devices xc7vx690t_0] 0]
+set_property PROBES.FILE {/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices xc7vx690t_0] 0]
+current_hw_device [lindex [get_hw_devices xc7vx690t_0] 0]
+refresh_hw_device [lindex [get_hw_devices xc7vx690t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7vx690t_0] -filter {CELL_NAME=~"my_test_algo/my_ila_label"}]]
+set_property PROBES.FILE {/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices xc7vx690t_0] 0]
+set_property PROGRAM.FILE {/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/impl_1/top.bit} [lindex [get_hw_devices xc7vx690t_0] 0]
+program_hw_devices [lindex [get_hw_devices xc7vx690t_0] 0]
+refresh_hw_device [lindex [get_hw_devices xc7vx690t_0] 0]

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="simple_algo_array_hw_0_synth_1" LaunchPart="xc7vx690tffg1927-2" LaunchTime="1507641196">
+  <File Type="VDS-TIMING-PB" Name="simple_algo_array_hw_0_timing_summary_synth.pb"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="simple_algo_array_hw_0_timing_summary_synth.rpt"/>
+  <File Type="RDS-RDS" Name="simple_algo_array_hw_0.vds"/>
+  <File Type="PA-TCL" Name="simple_algo_array_hw_0.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="simple_algo_array_hw_0_drc_synth.rpt"/>
+  <File Type="RDS-UTIL" Name="simple_algo_array_hw_0_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="simple_algo_array_hw_0_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="simple_algo_array_hw_0.dcp"/>
+  <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/simple_algo_array_hw_0">
+    <File Path="$PSRCDIR/sources_1/ip/simple_algo_array_hw_0/simple_algo_array_hw_0.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="simple_algo_array_hw_0"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="BlockSrcs" RelSrcDir="$PSRCDIR/simple_algo_array_hw_0">
+    <File Path="$PSRCDIR/sources_1/ip/simple_algo_array_hw_0/simple_algo_array_hw_0.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="simple_algo_array_hw_0"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016"/>
+    <Step Id="synth_design"/>
+  </Strategy>
+</GenRun>
