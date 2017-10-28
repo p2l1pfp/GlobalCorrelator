@@ -29,7 +29,7 @@ input_t pop_stream(apin_t const &e) {
 apin_t push_stream(output_t const &v, bool last) {
 #pragma HLS INLINE OFF
   apin_t e;
-  e.data = v;//v.to_uint(); 
+  e.data = v;//.to_uint(); 
   e.strb = (1<<sizeof(output_o))-1;
   e.keep = (1<<sizeof(output_o))-1;
   e.user = 0;
@@ -42,21 +42,29 @@ void basic_axistream(apin_t in_stream[STREAMSIZE*N_INPUTS],apin_t out_stream[STR
 #pragma HLS INTERFACE s_axilite        port=return bundle=CTRL_BUS
 #pragma HLS INTERFACE axis             port=in_stream
 #pragma HLS INTERFACE axis             port=out_stream
+
   input_t  input [STREAMSIZE][N_INPUTS];
   output_t output[STREAMSIZE][N_OUTPUTS];
   unsigned int inid=0;
-  unsigned int outid=0;
+
   for(unsigned int j = 0; j < STREAMSIZE; j++) { 
     //No point in unrolling this guy
 #pragma HLS PIPELINE II=1
     // stream in first matrix                                                                                                                            
     for(unsigned int i=0; i<N_INPUTS; i++) {
-#pragma HLS UNROLL
+#pragma HLS PIPELINE II=1
       input[j][i] = pop_stream(in_stream[inid++]);
     }
+  }
+  for(unsigned int j = 0; j < STREAMSIZE; j++) {
+#pragma HLS PIPELINE II=1
     test_hw(input[j],output[j]);
+  }
+  unsigned int outid=0;
+  for(unsigned int j = 0; j < STREAMSIZE; j++) { 
+#pragma HLS PIPELINE II=1
     for(unsigned int i=0; i<N_OUTPUTS; i++) {
-#pragma HLS UNROLL
+#pragma HLS PIPELINE II=1
       out_stream[outid++] = push_stream(output[j][i],outid==(STREAMSIZE*N_OUTPUTS));
     }
   }
@@ -105,7 +113,7 @@ void basic_bram(unsigned int in_stream[N_INPUTS],unsigned int out_stream[N_OUTPU
   for(unsigned int i=0; i<N_OUTPUTS; i++) {
     //#pragma HLS UNROLL
 #pragma HLS PIPELINE II=1
-    out_stream[i] = (unsigned int) output[outid++];
+    out_stream[outid++] = output[i];
   }
   return;
 }
