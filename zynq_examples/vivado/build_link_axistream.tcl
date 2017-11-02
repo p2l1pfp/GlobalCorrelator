@@ -1,12 +1,9 @@
 puts "Building Full System"
-
-#create_project test_dnn_stream /local/pharris/Xilinx_DNN/MLinFPGAs/vivado_higgs_stream/test_dnn_stream_v1 -part xc7z020clg484-1
-#set_property board_part em.avnet.com:zed:part0:1.3 [current_project]
-#set_property target_language VHDL [current_project]
-#create_bd_design "test_dnn_stream_v1_hw"
-#set_property ip_repo_paths [list ../hls/higgs_2layer_zynq_dma/higgs_2layer_prj/solution1/impl/ip/ ../vivado_v0/timer_subsystem/] [current_fileset] 
-set_property ip_repo_paths [list ../hls/higgs_2layer_zynq_dma_v2/higgs_2layer_stream_prj/solution1/impl/ip/ ../vivado_v0/timer_subsystem/] [current_fileset] 
-#set_property ip_repo_paths [list ../hls/higgs_2layer_zynq_dma/higgs_2layer_hlsstream_prj/solution1/impl/ip/ ../vivado_v0/timer_subsystem/] [current_fileset] 
+create_project test_axistream ../vivado/test_axistream_prj -part xc7z020clg484-1 -force
+set_property board_part em.avnet.com:zed:part0:1.3 [current_project]
+set_property target_language VHDL [current_project]
+create_bd_design "test_axistream_hw"
+set_property ip_repo_paths [list ../example_transfer/basic_axistream_prj/solution1/impl/ip/ ../vivado/timer_subsystem/] [current_fileset]
 update_ip_catalog
 # clear
 set list [get_bd_intf_nets]
@@ -69,13 +66,12 @@ create_bd_cell -type ip -vlnv xilinx.com:ip:vio:3.0 vio_0
 set_property -dict [list CONFIG.C_PROBE_IN0_WIDTH {64} CONFIG.C_NUM_PROBE_OUT {0}] [get_bd_cells vio_0]
 
 #DNN
-#create_bd_cell -type ip -vlnv xilinx.com:hls:higgs_2layer:1.0 ex_1layer
-create_bd_cell -type ip -vlnv xilinx.com:hls:higgs_2layer_stream:1.0 ex_1layer
-#set_property -dict [list CONFIG.C_S_AXI_CONTROL_BUS_ADDR_WIDTH {32}] [get_bd_cells ex_1layer]
+create_bd_cell -type ip -vlnv xilinx.com:hls:basic_axistream:1.0 basic_axistream
+#set_property -dict [list CONFIG.C_S_AXI_CONTROL_BUS_ADDR_WIDTH {32}] [get_bd_cells basic_axistream]
 
 # connections to Everything!!!!! (its more fun in the gui)
 connect_bd_net -net [get_bd_nets processing_system7_fclk_clk0] [get_bd_pins timer_subsystem_0/clk] [get_bd_pins processing_system7/FCLK_CLK0]
-connect_bd_net -net [get_bd_nets processing_system7_fclk_clk0] [get_bd_pins ex_1layer/ap_clk]      [get_bd_pins processing_system7/FCLK_CLK0]
+connect_bd_net -net [get_bd_nets processing_system7_fclk_clk0] [get_bd_pins basic_axistream/ap_clk]      [get_bd_pins processing_system7/FCLK_CLK0]
 connect_bd_net [get_bd_pins sw_trig_isolator/Dout] [get_bd_pins timer_subsystem_0/sw_capture_trig]
 connect_bd_net [get_bd_pins reset_isolator/Dout] [get_bd_pins timer_subsystem_0/reset]
 connect_bd_net -net [get_bd_nets processing_system7_gpio_o] [get_bd_pins reset_isolator/Din] [get_bd_pins processing_system7/GPIO_O]
@@ -94,12 +90,12 @@ connect_bd_intf_net -intf_net control_interconnect_m01_axi [get_bd_intf_pins con
 connect_bd_intf_net -intf_net processing_system7_m_axi_gp0 [get_bd_intf_pins control_interconnect/S00_AXI] [get_bd_intf_pins processing_system7/M_AXI_GP0]
 connect_bd_intf_net [get_bd_intf_pins DMA_controller/M_AXI_S2MM] [get_bd_intf_pins accelerator_interconnect/S01_AXI]
 connect_bd_net -net axi_timer_interrupt [get_bd_pins axi_timer/interrupt] [get_bd_pins coalesce_interrupts/In0]
-connect_bd_net [get_bd_pins ex_1layer/interrupt] [get_bd_pins coalesce_interrupts/In1]
+connect_bd_net [get_bd_pins basic_axistream/interrupt] [get_bd_pins coalesce_interrupts/In1]
 #clocks everywhere else
 connect_bd_net -net processing_system7_fclk_clk0 [get_bd_pins DMA_controller/m_axi_mm2s_aclk] [get_bd_pins DMA_controller/m_axi_s2mm_aclk] [get_bd_pins DMA_controller/s_axi_lite_aclk] [get_bd_pins accelerator_interconnect/ACLK] [get_bd_pins accelerator_interconnect/M00_ACLK] [get_bd_pins accelerator_interconnect/S00_ACLK] [get_bd_pins accelerator_interconnect/S01_ACLK] [get_bd_pins control_interconnect/ACLK] [get_bd_pins control_interconnect/M00_ACLK] [get_bd_pins control_interconnect/M01_ACLK] [get_bd_pins control_interconnect/M02_ACLK] [get_bd_pins control_interconnect/S00_ACLK] [get_bd_pins axi_timer/s_axi_aclk] [get_bd_pins proc_sys_reset/slowest_sync_clk] [get_bd_pins processing_system7/FCLK_CLK0] [get_bd_pins processing_system7/M_AXI_GP0_ACLK] [get_bd_pins processing_system7/S_AXI_ACP_ACLK]
 #processor reset to proc_sys_reset
 connect_bd_net -net processing_system7_fclk_reset0_n [get_bd_pins proc_sys_reset/ext_reset_in] [get_bd_pins processing_system7/FCLK_RESET0_N]
-connect_bd_net -net [get_bd_nets proc_sys_reset_peripheral_aresetn] [get_bd_pins ex_1layer/ap_rst_n] [get_bd_pins proc_sys_reset/peripheral_aresetn]
+connect_bd_net -net [get_bd_nets proc_sys_reset_peripheral_aresetn] [get_bd_pins basic_axistream/ap_rst_n] [get_bd_pins proc_sys_reset/peripheral_aresetn]
 #proc_sys_reset interconnect reset to interconnect devices
 connect_bd_net [get_bd_pins proc_sys_reset/interconnect_aresetn] [get_bd_pins control_interconnect/ARESETN]
 connect_bd_net -net [get_bd_nets proc_sys_reset_interconnect_aresetn] [get_bd_pins accelerator_interconnect/ARESETN] [get_bd_pins proc_sys_reset/interconnect_aresetn]
@@ -117,22 +113,20 @@ create_bd_addr_seg -range 0x1000000  -offset 0xFC000000 [get_bd_addr_spaces DMA_
 create_bd_addr_seg -range 0x10000    -offset 0x40400000 [get_bd_addr_spaces processing_system7/Data] [get_bd_addr_segs DMA_controller/S_AXI_LITE/Reg] SEG_DMA_controller_Reg
 create_bd_addr_seg -range 0x10000    -offset 0x42800000 [get_bd_addr_spaces processing_system7/Data] [get_bd_addr_segs axi_timer/S_AXI/Reg] SEG_axi_timer_Reg
 
+connect_bd_intf_net [get_bd_intf_pins basic_axistream/out_stream] [get_bd_intf_pins DMA_controller/S_AXIS_S2MM]
+connect_bd_intf_net [get_bd_intf_pins basic_axistream/in_stream] [get_bd_intf_pins DMA_controller/M_AXIS_MM2S]
+apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config {Master "/processing_system7/M_AXI_GP0" Clk "Auto" }  [get_bd_intf_pins basic_axistream/s_axi_CTRL_BUS]
 
-#connect_bd_intf_net [get_bd_intf_pins DMA_controller/M_AXIS_MM2S] [get_bd_intf_pins ex_1layer/in_stream]
-#connect_bd_intf_net [get_bd_intf_pins ex_1layer/out_stream] [get_bd_intf_pins DMA_controller/S_AXIS_S2MM]
-#apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config {Master "/processing_system7/M_AXI_GP0" Clk "Auto" }  [get_bd_intf_pins ex_1layer/s_axi_CTRL_BUS]
-
-#validate_bd_design
+validate_bd_design
 #Finish it up
-#make_wrapper -files [get_files /local/pharris/Xilinx_DNN/MLinFPGAs/vivado/test_dnn/test_dnn.srcs/sources_1/bd/test_dnn_hw/test_dnn.bd] -top
-#add_files -norecurse /local/pharris/Xilinx_DNN/MLinFPGAs/vivado/test_dnn/test_dnn.srcs/sources_1/bd/test_dnn_des/hdl/test_dnn_hw_wrapper.vhd
-#add_files -norecurse /local/pharris/Xilinx_DNN/MLinFPGAs/vivado_higgs5/test_dnn_stream/test_dnn_stream.srcs/sources_1/bd/test_dnn_stream_hw/hdl/test_dnn_stream_hw_wrapper.vhd
+make_wrapper -files [get_files ../vivado/test_axistream_prj/test_axistream.srcs/sources_1/bd/test_axistream_hw/test_axistream_hw.bd] -top
+add_files -norecurse           ../vivado/test_axistream_prj/test_axistream.srcs/sources_1/bd/test_axistream_hw/hdl/test_axistream_hw_wrapper.vhd
 
-#update_compile_order -fileset sources_1
-#update_compile_order -fileset sim_1
-#save_bd_design
-#launch_runs synth_1 -jobs 2
-#launch_runs impl_1 -jobs 2
-#launch_runs impl_1 -to_step write_bitstream -jobs 2
-#open_run impl_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+save_bd_design
+launch_runs synth_1
+launch_runs impl_1
+launch_runs impl_1 -to_step write_bitstream 
+open_run impl_1
 

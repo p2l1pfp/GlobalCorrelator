@@ -46,7 +46,7 @@ void basic_axistream(apin_t in_stream[STREAMSIZE*N_INPUTS],apin_t out_stream[STR
   input_t  input [STREAMSIZE][N_INPUTS];
   output_t output[STREAMSIZE][N_OUTPUTS];
   unsigned int inid=0;
-
+  unsigned int outid=0;
   for(unsigned int j = 0; j < STREAMSIZE; j++) { 
     //No point in unrolling this guy
 #pragma HLS PIPELINE II=1
@@ -55,14 +55,10 @@ void basic_axistream(apin_t in_stream[STREAMSIZE*N_INPUTS],apin_t out_stream[STR
 #pragma HLS PIPELINE II=1
       input[j][i] = pop_stream(in_stream[inid++]);
     }
-  }
-  for(unsigned int j = 0; j < STREAMSIZE; j++) {
+    for(unsigned int i=0; i < N_OUTPUTS;  i++) { 
 #pragma HLS PIPELINE II=1
-    test_hw(input[j],output[j]);
-  }
-  unsigned int outid=0;
-  for(unsigned int j = 0; j < STREAMSIZE; j++) { 
-#pragma HLS PIPELINE II=1
+      output[j][i] = input[j][i]*2;
+    }
     for(unsigned int i=0; i<N_OUTPUTS; i++) {
 #pragma HLS PIPELINE II=1
       out_stream[outid++] = push_stream(output[j][i],outid==(STREAMSIZE*N_OUTPUTS));

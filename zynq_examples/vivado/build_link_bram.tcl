@@ -2,7 +2,7 @@ create_project test_bram ../vivado/test_bram_prj -part xc7z020clg484-1
 set_property board_part em.avnet.com:zed:part0:1.3 [current_project]
 set_property target_language VHDL [current_project]
 create_bd_design "test_bram_hw"
-set_property ip_repo_paths [list ../example_transfer/basic_bram_prj/solution1/impl/ip/ timer_subsystem/] [current_fileset]
+set_property ip_repo_paths [list ../example_transfer/basic_bram_prj/solution1/impl/ip/ ../vivado/timer_subsystem/] [current_fileset]
 update_ip_catalog
 
 puts "Building Full System"
