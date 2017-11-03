@@ -118,8 +118,8 @@ apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config {Master "/processing_s
 
 validate_bd_design
 #Finish it up
-make_wrapper -files [get_files ../vivado/test_bram.srcs/sources_1/bd/test_bram_hw/test_bram_hw.bd] -top
-add_files -norecurse           ../vivado/test_bram.srcs/sources_1/bd/test_bram_hw/hdl/test_bram_hw_wrapper.vhd
+make_wrapper -files [get_files ../vivado/test_bram_prj/test_bram.srcs/sources_1/bd/test_bram_hw/test_bram_hw.bd] -top
+add_files -norecurse           ../vivado/test_bram_prj/test_bram.srcs/sources_1/bd/test_bram_hw/hdl/test_bram_hw_wrapper.vhd
 update_compile_order -fileset sources_1
 update_compile_order -fileset sim_1
 save_bd_design
