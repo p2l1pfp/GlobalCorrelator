@@ -1,0 +1,35 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1756540 on Mon Jan 23 19:11:19 MST 2017
+# IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+# Start of session at: Tue Oct 10 15:02:39 2017
+# Process ID: 17946
+# Current directory: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA
+# Command line: vivado -mode batch -source build.tcl
+# Log file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/vivado.log
+# Journal file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/vivado.jou
+#-----------------------------------------------------------
+source build.tcl
+# set origin_dir "."
+# create_project top ./top -part xc7vx690tffg1927-2 -force
+# set proj_dir [get_property directory [current_project]]
+# set obj [get_projects top]
+# set_property "default_lib" "xil_defaultlib" $obj
+# set_property "generate_ip_upgrade_log" "0" $obj
+# set_property "part" "xc7vx690tffg1927-2" $obj
+# set_property "sim.ip.auto_export_scripts" "1" $obj
+# set_property "simulator_language" "VHDL" $obj
+# set_property "target_language" "VHDL" $obj
+# set_property "xpm_libraries" "XPM_MEMORY" $obj
+# set_property  ip_repo_paths user_ip_repo [current_project]
+# file mkdir user_ip_repo
+# update_ip_catalog -rebuild
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/user_ip_repo'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/ttuser/Vivado_HLS/Vivado/2016.4/data/ip'.
+# update_ip_catalog -add_ip "$origin_dir/../HLSIPs/proj0/solution1/impl/ip/cern-cms_hls_simple_algo_array_hw_1_0.zip" -repo_path user_ip_repo
+INFO: [IP_Flow 19-949] Unzipped './../HLSIPs/proj0/solution1/impl/ip/cern-cms_hls_simple_algo_array_hw_1_0.zip' into repository '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/user_ip_repo'.
+INFO: [IP_Flow 19-725] Reloaded user IP repository '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/user_ip_repo'
+# create_ip -name simple_algo_hw -vendor "cern-cms" -library hls -module_name simple_algo_array_hw_0
+ERROR: [Coretcl 2-1134] No IP matching VLNV 'cern-cms:hls:simple_algo_hw:*' was found. Please check your repository configuration.
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 10 15:02:48 2017...

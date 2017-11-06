@@ -1,0 +1,41 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1756540 on Mon Jan 23 19:11:19 MST 2017
+# IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+# Start of session at: Tue Oct 10 14:43:48 2017
+# Process ID: 10453
+# Current directory: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA
+# Command line: vivado top/top.xpr
+# Log file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/vivado.log
+# Journal file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project top/top.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/user_ip_repo'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/ttuser/Vivado_HLS/Vivado/2016.4/data/ip'.
+open_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:15 . Memory (MB): peak = 6023.695 ; gain = 135.066 ; free physical = 17888 ; free virtual = 34635
+launch_runs synth_1 -jobs 6
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/cgn/blk_mem_gen_0/blk_mem_gen_0.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/cgn/ila_0/ila_0.xci' is already up-to-date
+INFO: [HDL 9-1061] Parsing VHDL file "/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/hdl/test_algo.vhd" into library xil_defaultlib [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/hdl/test_algo.vhd:1]
+INFO: [HDL 9-1061] Parsing VHDL file "/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/hdl/top.vhd" into library xil_defaultlib [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/hdl/top.vhd:1]
+[Tue Oct 10 14:44:49 2017] Launched simple_algo_hw_0_synth_1...
+Run output will be captured here: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/top/top.runs/simple_algo_hw_0_synth_1/runme.log
+[Tue Oct 10 14:44:49 2017] Launched synth_1...
+Run output will be captured here: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/top/top.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 6
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/cgn/blk_mem_gen_0/blk_mem_gen_0.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/cgn/ila_0/ila_0.xci' is already up-to-date
+[Tue Oct 10 14:46:43 2017] Launched impl_1...
+Run output will be captured here: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/top/top.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/cgn/blk_mem_gen_0/blk_mem_gen_0.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/cgn/ila_0/ila_0.xci' is already up-to-date
+[Tue Oct 10 14:50:16 2017] Launched impl_1...
+Run output will be captured here: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/top/top.runs/impl_1/runme.log
+open_hw
+exit
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 10 14:52:33 2017...

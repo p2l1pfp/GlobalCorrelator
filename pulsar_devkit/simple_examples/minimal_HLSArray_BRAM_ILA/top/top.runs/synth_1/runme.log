@@ -1,0 +1,340 @@
+
+*** Running vivado
+    with args -log top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+
+
+****** Vivado v2016.4 (64-bit)
+  **** SW Build 1756540 on Mon Jan 23 19:11:19 MST 2017
+  **** IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+    ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+
+source top.tcl -notrace
+Command: synth_design -top top -part xc7vx690tffg1927-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7vx690t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7vx690t'
+INFO: [Common 17-1223] The version limit for your license is '2016.12' and will expire in -283 days. A version limit expiration means that, although you may be able to continue to use the current version of tools or IP with this license, you will not be eligible for any updates or new releases.
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 22325 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1249.215 ; gain = 232.121 ; free physical = 17554 ; free virtual = 34304
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'top' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/top.vhd:22]
+INFO: [Synth 8-3491] module 'test_algo_array' declared at '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:4' bound to instance 'my_test_algo' of component 'test_algo_array' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/top.vhd:43]
+INFO: [Synth 8-638] synthesizing module 'test_algo_array' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:13]
+INFO: [Synth 8-3491] module 'blk_mem_gen_0' declared at '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/realtime/blk_mem_gen_0_stub.vhdl:5' bound to instance 'my_bram_label' of component 'blk_mem_gen_0' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:71]
+INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_0' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/realtime/blk_mem_gen_0_stub.vhdl:17]
+WARNING: [Synth 8-5640] Port 'ina_v_ce0' is missing in component declaration [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:31]
+WARNING: [Synth 8-5640] Port 'inb_v_ce0' is missing in component declaration [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:31]
+WARNING: [Synth 8-5640] Port 'ap_clk' is missing in component declaration [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:31]
+WARNING: [Synth 8-5640] Port 'ap_rst' is missing in component declaration [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:31]
+WARNING: [Synth 8-5640] Port 'ina_v_address0' is missing in component declaration [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:31]
+WARNING: [Synth 8-5640] Port 'inb_v_address0' is missing in component declaration [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:31]
+INFO: [Synth 8-3491] module 'simple_algo_array_hw_0' declared at '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/realtime/simple_algo_array_hw_0_stub.vhdl:5' bound to instance 'my_hls_label' of component 'simple_algo_array_hw_0' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:80]
+INFO: [Synth 8-638] synthesizing module 'simple_algo_array_hw_0' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/realtime/simple_algo_array_hw_0_stub.vhdl:25]
+INFO: [Synth 8-3491] module 'ila_0' declared at '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/realtime/ila_0_stub.vhdl:5' bound to instance 'my_ila_label' of component 'ila_0' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:91]
+INFO: [Synth 8-638] synthesizing module 'ila_0' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/realtime/ila_0_stub.vhdl:15]
+INFO: [Synth 8-256] done synthesizing module 'test_algo_array' (1#1) [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:13]
+	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
+	Parameter DIFF_TERM bound to: 0 - type: bool 
+	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
+	Parameter IBUF_LOW_PWR bound to: 1 - type: bool 
+	Parameter IOSTANDARD bound to: DEFAULT - type: string 
+INFO: [Synth 8-113] binding component instance 'IBUFGDS_sys' to cell 'IBUFGDS' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/top.vhd:63]
+INFO: [Synth 8-113] binding component instance 'BUFG_syspre' to cell 'BUFG' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/top.vhd:69]
+INFO: [Synth 8-256] done synthesizing module 'top' (2#1) [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/top.vhd:22]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port clk2
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[31]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[30]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[29]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[28]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[27]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[26]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[25]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[24]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[23]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[22]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[21]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[20]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[19]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[18]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[17]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[16]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[15]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[14]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[13]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[12]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[11]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[10]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[9]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[8]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[7]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[6]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[5]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[4]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[3]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[2]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[1]
+WARNING: [Synth 8-3331] design test_algo_array has unconnected port data_in[0]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1290.691 ; gain = 273.598 ; free physical = 17512 ; free virtual = 34262
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1290.691 ; gain = 273.598 ; free physical = 17512 ; free virtual = 34262
+---------------------------------------------------------------------------------
+WARNING: [Project 1-486] Could not resolve non-primitive black box cell 'blk_mem_gen_0' instantiated as 'my_test_algo/my_bram_label' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:71]
+WARNING: [Project 1-486] Could not resolve non-primitive black box cell 'ila_0' instantiated as 'my_test_algo/my_ila_label' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:91]
+WARNING: [Project 1-486] Could not resolve non-primitive black box cell 'simple_algo_array_hw_0' instantiated as 'my_test_algo/my_hls_label' [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/hdl/test_algo_array.vhd:80]
+INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Device 21-403] Loading part xc7vx690tffg1927-2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/dcp/simple_algo_array_hw_0_in_context.xdc] for cell 'my_test_algo/my_hls_label'
+Finished Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/dcp/simple_algo_array_hw_0_in_context.xdc] for cell 'my_test_algo/my_hls_label'
+Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/dcp_2/blk_mem_gen_0_in_context.xdc] for cell 'my_test_algo/my_bram_label'
+Finished Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/dcp_2/blk_mem_gen_0_in_context.xdc] for cell 'my_test_algo/my_bram_label'
+Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/dcp_3/ila_0_in_context.xdc] for cell 'my_test_algo/my_ila_label'
+Finished Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/.Xil/Vivado-22042-nucts01/dcp_3/ila_0_in_context.xdc] for cell 'my_test_algo/my_ila_label'
+Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/xdc/constraints.xdc]
+Finished Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/xdc/constraints.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/xdc/constraints.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 1 instances were transformed.
+  IBUFGDS => IBUFDS: 1 instances
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 1784.641 ; gain = 0.004 ; free physical = 17110 ; free virtual = 33860
+WARNING: [Timing 38-316] Clock period '20.000' specified during out-of-context synthesis of instance 'my_test_algo/my_bram_label' at clock pin 'clka' is different from the actual clock period '5.000', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'my_test_algo/my_ila_label' at clock pin 'clk' is different from the actual clock period '5.000', this can lead to different synthesis results.
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17111 ; free virtual = 33860
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7vx690tffg1927-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17111 ; free virtual = 33860
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property DONT_TOUCH = true for my_test_algo/my_bram_label. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for my_test_algo/my_ila_label. (constraint file  auto generated constraint, line ).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17111 ; free virtual = 33860
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17107 ; free virtual = 33857
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module test_algo_array 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 3600 (col length:200)
+BRAMs: 2940 (col length: RAMB18 200 RAMB36 100)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17107 ; free virtual = 33856
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-4442] BlackBox module \my_test_algo/my_hls_label  has unconnected pin ap_clk
+CRITICAL WARNING: [Synth 8-4442] BlackBox module \my_test_algo/my_hls_label  has unconnected pin ap_rst
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+-----------------------+----------+
+|      |BlackBox name          |Instances |
++------+-----------------------+----------+
+|1     |blk_mem_gen_0          |         1|
+|2     |simple_algo_array_hw_0 |         1|
+|3     |ila_0                  |         1|
++------+-----------------------+----------+
+
+Report Cell Usage: 
++------+----------------------------+------+
+|      |Cell                        |Count |
++------+----------------------------+------+
+|1     |blk_mem_gen_0_bbox          |     1|
+|2     |ila_0_bbox                  |     1|
+|3     |simple_algo_array_hw_0_bbox |     1|
+|4     |BUFG                        |     1|
+|5     |LUT1                        |     1|
+|6     |FDRE                        |     1|
+|7     |IBUFGDS                     |     1|
++------+----------------------------+------+
+
+Report Instance Areas: 
++------+---------------+----------------+------+
+|      |Instance       |Module          |Cells |
++------+---------------+----------------+------+
+|1     |top            |                |   108|
+|2     |  my_test_algo |test_algo_array |   106|
++------+---------------+----------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17099 ; free virtual = 33849
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 2 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1784.641 ; gain = 104.473 ; free physical = 17099 ; free virtual = 33849
+Synthesis Optimization Complete : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1784.641 ; gain = 767.547 ; free physical = 17100 ; free virtual = 33850
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 1 instances were transformed.
+  IBUFGDS => IBUFDS: 1 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+30 Infos, 44 Warnings, 2 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:38 ; elapsed = 00:00:39 . Memory (MB): peak = 1784.641 ; gain = 641.043 ; free physical = 17100 ; free virtual = 33850
+INFO: [Common 17-1381] The checkpoint '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_HLSArray_BRAM_ILA/top/top.runs/synth_1/top.dcp' has been generated.
+report_utilization: Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.07 . Memory (MB): peak = 1784.641 ; gain = 0.000 ; free physical = 17100 ; free virtual = 33849
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 10 15:14:57 2017...

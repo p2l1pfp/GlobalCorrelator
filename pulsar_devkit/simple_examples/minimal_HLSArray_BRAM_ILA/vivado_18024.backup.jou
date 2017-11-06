@@ -1,0 +1,20 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1756540 on Mon Jan 23 19:11:19 MST 2017
+# IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+# Start of session at: Tue Oct 10 15:03:36 2017
+# Process ID: 18024
+# Current directory: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA
+# Command line: vivado top/top.xpr
+# Log file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/vivado.log
+# Journal file: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project top/top.xpr
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+launch_runs impl_1 -jobs 6
+wait_on_run impl_1

@@ -1,0 +1,157 @@
+/*
+
+Vivado v2016.4 (64-bit)
+SW Build 1756540 on Mon Jan 23 19:11:19 MST 2017
+Process ID: 18874
+
+Current time: 	10/6/17 11:55:13 AM CEST
+Time zone: 	Central European Time (Europe/Paris)
+
+OS: CentOS release 6.9 (Final)
+Version: 2.6.32-696.6.3.el6.x86_64
+Architecture: amd64
+Available processors (cores): 12
+
+DISPLAY: localhost:10.0
+Screen size: 1920x2108
+Screen resolution (DPI): 99
+Available screens: 2
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_66 64-bit
+Java home: 	/home/ttuser/Vivado_HLS/Vivado/2016.4/tps/lnx64/jre
+
+User name: 	root
+User home directory: /root
+User working directory: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI base root directory: /home/ttuser/Vivado_HLS/Vivado
+RDI data directory: /home/ttuser/Vivado_HLS/Vivado/2016.4/data
+RDI bin directory: /home/ttuser/Vivado_HLS/Vivado/2016.4/bin
+
+Vivado preferences path: /root/.Xilinx/Vivado/2016.4/vivado.ini
+Vivado layouts directory: /root/.Xilinx/Vivado/2016.4/layouts
+
+GUI allocated memory:	225 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 4,911 MB
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// [GUI Memory]: 36 MB (+35713kb) [00:00:07]
+// [Engine Memory]: 4,888 MB (+4974475kb) [00:00:07]
+// Opening Vivado Project: top/top.xpr. Version: Vivado v2016.4 
+// bt:g (cd:JFrame):  Open Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_CURRENT
+// [GUI Memory]: 43 MB (+4668kb) [00:00:09]
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: LOAD_FEATURE
+// Tcl Message: open_project top/top.xpr 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,017 MB. GUI used memory: 31 MB. Current time: 10/6/17 11:55:14 AM CEST
+// [Engine Memory]: 5,154 MB (+22478kb) [00:00:19]
+// [GUI Memory]: 46 MB (+1322kb) [00:00:29]
+// [GUI Memory]: 50 MB (+1800kb) [00:00:34]
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 5,273 MB. GUI used memory: 28 MB. Current time: 10/6/17 11:55:45 AM CEST
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// Tcl Message: open_project top/top.xpr 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/user_ip_repo'. INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/ttuser/Vivado_HLS/Vivado/2016.4/data/ip'. INFO: [Device 21-403] Loading part xc7vx690tffg1927-2 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,350 MB. GUI used memory: 33 MB. Current time: 10/6/17 11:56:14 AM CEST
+// Tcl Message: open_project: Time (s): cpu = 00:00:59 ; elapsed = 00:01:01 . Memory (MB): peak = 6334.430 ; gain = 442.715 ; free physical = 17625 ; free virtual = 34320 
+// Project name: top; location: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/top; part: xc7vx690tffg1927-2
+dismissDialog("Open Project"); // bt:g (cd:JFrame)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 11 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Synthesis, Run Synthesis]", 17, false); // u:K (t:D, cd:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_RUN_SYNTHESIS
+// f:q (cd:JFrame): Launch Runs: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, f:q)
+// bt:g (cd:JFrame):  Starting Design Runs : addNotify
+dismissDialog("Launch Runs"); // f:q (cd:JFrame)
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: launch_runs synth_1 -jobs 6 
+// Tcl Message: INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_0'... INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'ila_0'... 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_NEW
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_NEW
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Fri Oct  6 11:56:32 2017] Launched simple_algo_hw_0_synth_1, blk_mem_gen_0_synth_1, ila_0_synth_1... Run output will be captured here: simple_algo_hw_0_synth_1: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/top/top.runs/simple_algo_hw_0_synth_1/runme.log blk_mem_gen_0_synth_1: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/top/top.runs/blk_mem_gen_0_synth_1/runme.log ila_0_synth_1: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/top/top.runs/ila_0_synth_1/runme.log 
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Fri Oct  6 11:56:33 2017] Launched synth_1... Run output will be captured here: /home/ssevova/GlobalCorrelator/pulsar_devkit/simple_examples/minimal_BRAM_ILA/top/top.runs/synth_1/runme.log 
+// 'k' command handler elapsed time: 6 seconds
+dismissDialog("Starting Design Runs"); // bt:g (cd:JFrame)
+// HMemoryUtils.trashcanNow. Engine heap size: 5,382 MB. GUI used memory: 34 MB. Current time: 10/6/17 11:56:35 AM CEST
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// [GUI Memory]: 56 MB (+2974kb) [00:01:33]
+// TclEventType: RUN_COMPLETED
+// TclEventType: FILE_SET_CHANGE
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking too long to process. Increasing delay to 2000 ms.
+// [GUI Memory]: 59 MB (+775kb) [00:02:56]
+// TclEventType: RUN_COMPLETED
+// TclEventType: FILE_SET_CHANGE
+// [GUI Memory]: 62 MB (+378kb) [00:03:38]
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_FAILED
+// ah:y (cd:JFrame): Synthesis Failed: addNotify
+// [GUI Memory]: 66 MB (+865kb) [00:04:41]
+// [GUI Memory]: 70 MB (+289kb) [00:05:56]
+// [GUI Memory]: 75 MB (+1160kb) [00:09:46]
