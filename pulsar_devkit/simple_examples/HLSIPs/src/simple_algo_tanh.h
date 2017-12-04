@@ -14,6 +14,7 @@ typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> val_t;
 typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> result_t;
 
 
+// reference and hardware functions
 void simple_algo_tanh_ref( float in, float& out );
 void simple_algo_tanh_hw(val_t data, result_t& res);
 
@@ -30,6 +31,7 @@ template<class data_T, int N_TABLE>
 void init_tanh_table(data_T table_out[N_TABLE]) {
     // Implement tanh lookup
     for (int ii = 0; ii < N_TABLE; ii++) {
+        // Original: 
         // First, convert from table index to X-value (signed 8-bit, range -4 to +4)
         //float in_val = 2*4.0*(ii-float(N_TABLE)/2.0)/float(N_TABLE);
 
@@ -38,7 +40,7 @@ void init_tanh_table(data_T table_out[N_TABLE]) {
 
         // Next, compute lookup table function
         data_T real_val = tanh(in_val);
-//        std::cout << "Tanh:  Lookup table Index: " <<  ii<< " In Value: " << in_val << " Result: " << real_val << std::endl;
+        //std::cout << "Tanh:  Lookup table Index: " <<  ii<< " In Value: " << in_val << " Result: " << real_val << std::endl;
         table_out[ii] = real_val;
     }
 
@@ -57,17 +59,13 @@ void tanh(data_T &data, res_T &res) {
     int index;
 
     #pragma HLS PIPELINE
+    // Original:
     //data_round = data.read()*TABLE_SIZE/8; // original 8-bit
     //index = data_round + 4*TABLE_SIZE/8;   // original 8-bit (makes value positive)
 
-    int TABLE_IND       = TABLE_SIZE / (TANH_RANGE);  // LUT 'binning'
-    int HALF_TANH_RANGE = TANH_RANGE/2;
-
-//    int data_rd = data * TABLE_SIZE / TANH_RANGE;
-//    index       = data_rd + TABLE_SIZE / HALF_TANH_RANGE;
     index = (1-data/TANH_RANGE)*TABLE_SIZE;
 
-    if (index < 0)   index = 0;
+    if (index < 0) index = 0;
     if (index > TABLE_SIZE-1) index = TABLE_SIZE-1;
     res = tanh_table[index];
 
