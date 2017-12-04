@@ -20,6 +20,11 @@ void simple_algo_tanh_hw(val_t data, result_t& res);
 
 // *************************************************
 //       TanH Activation
+// Implemented following:
+//  https://github.com/Xilinx/RFNoC-HLS-NeuralNet/blob/master/rfnoc/hls/nnet_lib/nnet_activation.h#L111-L153
+//  -- remove references to NN layers
+//  -- Make the range for tanh (0,4) [symmetric function]
+//     -- Use +/- in the function call below
 // *************************************************
 template<class data_T, int N_TABLE>
 void init_tanh_table(data_T table_out[N_TABLE]) {
