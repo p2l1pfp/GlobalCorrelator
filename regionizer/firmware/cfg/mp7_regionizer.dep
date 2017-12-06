@@ -1,0 +1,16 @@
+src pftm_constants.vhd
+src pftm_data_types.vhd
+src egg_timer.vhd
+src phi_splitter.vhd
+src sector_processor.vhd
+src delay_line.vhd
+src bram_delay.vhd
+src trisector_muxer.vhd
+src pipelined_merger.vhd
+src regionizer_mp7_decoder.vhd
+src regionizer_mp7_decoder_twofibers.vhd
+src regionizer_mp7_encoder.vhd
+src regionizer_mp7_encoder_twoframes.vhd
+src regionizer_mp7_pipelined.vhd
+src regionizer_mp7_muons.vhd
+src regionizer_mp7_others.vhd
