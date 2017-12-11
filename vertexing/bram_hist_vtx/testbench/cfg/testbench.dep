@@ -1,0 +1,2 @@
+src -c regionizer pftm_textio.vhd
+src -c regionizer pftm_mp7_textio.vhd

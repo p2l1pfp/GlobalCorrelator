@@ -1,0 +1,15 @@
+src -c regionizer pftm_constants.vhd
+src -c regionizer pftm_data_types.vhd
+src -c regionizer delay_line.vhd
+src -c regionizer egg_timer.vhd
+src -c regionizer regionizer_mp7_decoder.vhd
+src bhv_data_types.vhd
+src bhv_track_to_bin.vhd
+src duplicate_merger.vhd
+src histo_double_add.vhd
+src histo_bram.vhd
+src histo_scan_triv.vhd
+src bhv_core.vhd
+src bhv_add_reducer.vhd
+src bhv_peak_finder.vhd
+src bhv_mp7.vhd
