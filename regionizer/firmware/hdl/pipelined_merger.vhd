@@ -2,9 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library UNISIM;
-use UNISIM.vcomponents.all;
-
 use work.pftm_data_types.all;
 use work.pftm_constants.all;
 
@@ -26,27 +23,24 @@ entity pipelined_merger is
         list3_in : in particles(N_OBJ_SECTOR_ETA-1 downto 0);  -- /
         list_out:  out particles(N_OBJ-1 downto 0);            -- pt-sorted list of output objects
         valid_out: out std_logic                               -- whether list_out is valid
-        --spy_out   : out particles(3*N_OBJ_SECTOR_ETA-1 downto 0); -- input particles for the regionizer
-        --spy_valid : out std_logic -- valid output from the regionizer
     );   
 end pipelined_merger;
 
 architecture Behavioral of pipelined_merger is
     type   work_bench is array (natural range <>) of particles(3*N_OBJ_SECTOR_ETA-1 downto 0);
     signal work  : work_bench(0 to 2*N_OBJ_SECTOR_ETA);
-    signal valid : std_logic_vector(0 to 2*N_OBJ_SECTOR_ETA);
+    signal valid : std_logic_vector(0 to 2*N_OBJ_SECTOR_ETA) := (others => '0');
 begin
 
-    -- I can't understand why, but Vivado fails to synthethise this correctly as registers if I use a process block.
-    -- so, I have to put by hand the FDCE's (flip-flops with asynchronous clear)
-    propv: for step in 2*N_OBJ_SECTOR_ETA-1 downto 0 generate
-        FDCE_inst : FDCE
-            generic map ( INIT => '0' )
-            port map ( CE  => '1', C   => clk, CLR => rst, D => valid(step), Q => valid(step+1) );
-    end generate propv;
-    FDCE_zero : FDCE 
-        generic map ( INIT => '0' ) 
-        port map ( CE  => go, C => clk, CLR => rst, D => valid_in, Q => valid(0) );
+    propv: process(clk,rst)
+    begin
+        if rst = '1' then
+            valid <= (others => '0');
+        elsif rising_edge(clk) then
+            valid(0) <= valid_in;
+            valid(1 to 2*N_OBJ_SECTOR_ETA) <= valid(0 to 2*N_OBJ_SECTOR_ETA-1);
+        end if;
+    end process propv;
  
     stepper: process(clk)
         variable pivot : particle;
@@ -98,8 +92,6 @@ begin
 
     list_out(N_OBJ-1 downto 0) <= work(2*N_OBJ_SECTOR_ETA)(N_OBJ-1 downto 0);
     valid_out <= valid(2*N_OBJ_SECTOR_ETA);
-    --spy_out(3*N_OBJ_SECTOR_ETA-1 downto 0) <= work(0)(3*N_OBJ_SECTOR_ETA-1 downto 0);
-    --spy_valid <= valid(0);
 end Behavioral;
 
 
