@@ -53,13 +53,13 @@ begin
                 --report "I wait";
             elsif last_go = '1' then
                 if (last_bin = this_bin) and (this_val /= to_ptsum(0)) then
-                    report "I add " & integer'image(to_integer(last_val)) & " to " & integer'image(to_integer(this_val)) & " in bin " & integer'image(to_integer(this_bin)) & " and push it out";
+                    --report "I add " & integer'image(to_integer(last_val)) & " to " & integer'image(to_integer(this_val)) & " in bin " & integer'image(to_integer(this_bin)) & " and push it out";
                     next_val <= trunc_add(this_val, last_val);
                     next_bin <= this_bin;
                     this_val <= to_ptsum(0); 
                     this_bin <= last_bin;
                 else
-                    report "I read " & integer'image(to_integer(last_val)) & " in bin " & integer'image(to_integer(last_bin)) & " and push " & integer'image(to_integer(this_val)) & " in bin " & integer'image(to_integer(this_bin));
+                    --report "I read " & integer'image(to_integer(last_val)) & " in bin " & integer'image(to_integer(last_bin)) & " and push " & integer'image(to_integer(this_val)) & " in bin " & integer'image(to_integer(this_bin));
                     next_val <= this_val;
                     next_bin <= this_bin;
                     this_val <= last_val;

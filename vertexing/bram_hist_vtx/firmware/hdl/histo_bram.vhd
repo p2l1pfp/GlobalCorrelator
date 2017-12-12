@@ -2,8 +2,12 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library unisim;
+use unisim.vcomponents.all;
+
 use work.bhv_data_types.all;
 
+-- hard version, instantiating the RAMB18E1 primitive
 entity histo_bram is
     generic(
         BANK_BITS : natural := 3;
@@ -27,80 +31,87 @@ entity histo_bram is
 end histo_bram;
 
 architecture Behavioral of histo_bram is
-    constant BIN_BITS : natural := zbin_t'length;
+    subtype phys_addr is std_logic_vector(13 downto 0);
+    subtype phys_data is std_logic_vector(15 downto 0);
+    subtype phys_parity is std_logic_vector(1 downto 0);
 
-    subtype addr is std_logic_vector(BANK_BITS+BIN_BITS-2 downto 0);
-
-    type ram_array is array((2**addr'length-1) downto 0) of std_logic_vector(17 downto 0);
-    shared variable ram  : ram_array := (others => (others => '0'));
-
-    signal adder_addr, reader_addr : addr;
-    signal adder_bit : std_logic;
-
-    signal adder_sel, reader_sel : integer range 0 to 2**addr'length-1;
+    signal a_addr, b_addr : phys_addr := (others => '0');
+    signal a_we : std_logic_vector(1 downto 0) := (others => '0');
+    signal b_we : std_logic_vector(3 downto 0) := (others => '0');
+    signal a_data_in, b_data_in, a_data_out, b_data_out : phys_data;
+    signal a_parity_in, b_parity_in, a_parity_out, b_parity_out : phys_parity;
+    
 begin
 
-    adder_addr(addr'length-1 downto BIN_BITS-1) <= std_logic_vector(adder_bank);
-    adder_addr(BIN_BITS-2 downto 0) <= std_logic_vector(adder_bin(zbin_t'length-1 downto 1));
-    adder_bit <= adder_bin(0);
+    ram: RAMB18E1
+            generic map(
+                    DOA_REG => 0,
+                    DOB_REG => 0,
+                    RAM_MODE => "TDP",
+                    READ_WIDTH_A => 9,
+                    WRITE_WIDTH_A => 9,
+                    READ_WIDTH_B => 18,
+                    WRITE_WIDTH_B => 18,
+                    WRITE_MODE_A => "READ_FIRST",
+                    WRITE_MODE_B => "READ_FIRST",
+                    RDADDR_COLLISION_HWCONFIG => "PERFORMANCE"
+            )
+            port map(
+                    ADDRARDADDR => a_addr,
+                    ADDRBWRADDR => b_addr,
+                    CLKARDCLK => clk,
+                    CLKBWRCLK => clk,
+                    DIADI => a_data_in,
+                    DIBDI => b_data_in,
+                    DIPADIP => a_parity_in,
+                    DIPBDIP => b_parity_in,
+                    DOADO => a_data_out,
+                    DOBDO => b_data_out,
+                    DOPADOP => a_parity_out,
+                    DOPBDOP => b_parity_out,
+                    ENARDEN => '1',
+                    ENBWREN => '1',
+                    REGCEAREGCE => '1',
+                    REGCEB => '1',
+                    RSTRAMARSTRAM => '0',
+                    RSTRAMB => '0',
+                    RSTREGARSTREG => '0',
+                    RSTREGB => '0',
+                    WEA => a_we,
+                    WEBWE => b_we
+            );
 
-    reader_addr(addr'length-1 downto BIN_BITS-1) <= std_logic_vector(reader_bank);
-    reader_addr(BIN_BITS-2 downto 0) <= std_logic_vector(reader_bin(zbin_t'length-1 downto 1));
+    assert reader_bank /= adder_bank report "Bank collision" severity failure;
 
-    adder_sel  <= to_integer(unsigned(adder_addr));
-    reader_sel <= to_integer(unsigned(reader_addr));
+    a_addr(12 downto 10) <= std_logic_vector(adder_bank); 
+    a_addr( 9 downto 3) <= std_logic_vector(adder_bin); 
 
-    port_a: process(clk)
-    begin
-        if rising_edge(clk) then
-            if adder_bit = '1' then
-                adder_out <= ptsum_t(ram(adder_sel)(17 downto 9));
-                if adder_we /= '1' then
-                    report "Read " & integer'image(to_integer(unsigned(ram(adder_sel)(17 downto 9)))) & 
-                          " from addr " & integer'image(adder_sel) & " bit " & std_logic'image(adder_bit) & 
-                          "  (bank " & integer'image(to_integer(adder_bank)) & " bin " & integer'image(to_integer(adder_bin)) & "  sector " & integer'image(SECTOR) & ")";
-                end if;
-            else
-                adder_out <= ptsum_t(ram(adder_sel)( 8 downto 0));
-                if adder_we /= '1' then
-                    report "Read " & integer'image(to_integer(unsigned(ram(adder_sel)( 8 downto 0)))) & 
-                          " from addr " & integer'image(adder_sel) & " bit " & std_logic'image(adder_bit) & 
-                          "  (bank " & integer'image(to_integer(adder_bank)) & " bin " & integer'image(to_integer(adder_bin)) & "  sector " & integer'image(SECTOR) & ")";
-                end if;
-            end if;
-            if adder_we = '1' then
-                if adder_bit = '1' then
-                    ram(adder_sel)(17 downto 9) := std_logic_vector(adder_in);
-                    report "Wrote " & integer'image(to_integer(unsigned(ram(adder_sel)(17 downto 9)))) & 
-                              " from addr " & integer'image(adder_sel) & " bit " & std_logic'image(adder_bit) & 
-                              "  (bank " & integer'image(to_integer(adder_bank)) & " bin " & integer'image(to_integer(adder_bin)) & "  sector " & integer'image(SECTOR) & ")";
-                else
-                    ram(adder_sel)( 8 downto 0) := std_logic_vector(adder_in);
-                    report "Wrote " & integer'image(to_integer(unsigned(ram(adder_sel)( 8 downto 0)))) & 
-                              " from addr " & integer'image(adder_sel) & " bit " & std_logic'image(adder_bit) & 
-                              "  (bank " & integer'image(to_integer(adder_bank)) & " bin " & integer'image(to_integer(adder_bin)) & "  sector " & integer'image(SECTOR) & ")";
-                end if;
-            else
-            end if;
-        end if;
-    end process;
-
+    b_addr(12 downto 10) <= std_logic_vector(reader_bank); 
+    b_addr( 9 downto 4) <= std_logic_vector(reader_bin(zbin_t'length-1 downto 1)); 
     
-    port_r: process(clk)
-    begin
-        if rising_edge(clk) then
-            reader_outh <= ptsum_t(ram(reader_sel)(17 downto 9));
-            reader_outl <= ptsum_t(ram(reader_sel)( 8 downto 0));
-            if reader_we = '1' then
-                report "Read " & integer'image(to_integer(unsigned(ram(reader_sel)(8 downto 0)))) & 
-                          " and " & integer'image(to_integer(unsigned(ram(reader_sel)(17 downto 9)))) &
-                          " from addr " & integer'image(reader_sel) & 
-                          "  (bank " & integer'image(to_integer(reader_bank)) & " bin " & integer'image(to_integer(reader_bin)) & "  sector " & integer'image(SECTOR) & ") and clearing the value.";
-                ram(reader_sel)(17 downto 9) := std_logic_vector(reader_inh);
-                ram(reader_sel)( 8 downto 0) := std_logic_vector(reader_inl);
-            else
-            end if;
-        end if;
-    end process;
-end Behavioral;
+    a_we <= (others => adder_we);
+    b_we <= (others => reader_we);
 
+    a_parity_in(0) <= adder_in(8);
+    a_data_in(7 downto 0) <= std_logic_vector(adder_in(7 downto 0));
+
+    adder_out(7 downto 0) <= unsigned(a_data_out(7 downto 0));
+    adder_out(8) <= a_parity_out(0);
+
+    b_data_in( 7 downto 0) <= std_logic_vector(reader_inl(7 downto 0));
+    b_data_in(15 downto 8) <= std_logic_vector(reader_inh(7 downto 0));
+    b_parity_in(0) <= reader_inl(8);
+    b_parity_in(1) <= reader_inh(8);
+
+    reader_outl(7 downto 0) <= unsigned(b_data_out( 7 downto 0));
+    reader_outh(7 downto 0) <= unsigned(b_data_out(15 downto 8));
+    reader_outl(8) <= b_parity_out(0);
+    reader_outh(8) <= b_parity_out(1);
+
+    -- user guide says tie unusued data to low, unused addresses to high
+    a_addr(13) <= '1'; 
+    b_addr(13) <= '1'; 
+    a_addr(2 downto 0) <= (others => '1'); 
+    b_addr(3 downto 0) <= (others => '1'); 
+    a_data_in(15 downto  8) <= (others => '0');
+end Behavioral;

@@ -27,11 +27,11 @@ begin
         variable bmax : zbin_t;
     begin
         if rising_edge(clk) then
-            report "Peak finder sees bin " & integer'image(to_integer(in_bin)) & 
-                        ", in_l = " & integer'image(to_integer(in_l)) & ", in_h = " & integer'image(to_integer(in_h)) & 
-                        ", curr_max " & integer'image(to_integer(curr_max)) & " @ " & integer'image(to_integer(curr_bmax));
+            --report "Peak finder sees bin " & integer'image(to_integer(in_bin)) & 
+            --           ", in_l = " & integer'image(to_integer(in_l)) & ", in_h = " & integer'image(to_integer(in_h)) & 
+            --            ", curr_max " & integer'image(to_integer(curr_max)) & " @ " & integer'image(to_integer(curr_bmax));
             if new_event = '1' then
-                report "New event, zeroing max and bmax. curr max was " & integer'image(to_integer(curr_max)) & " @ " & integer'image(to_integer(curr_bmax));
+                --report "New event, zeroing max and bmax. curr max was " & integer'image(to_integer(curr_max)) & " @ " & integer'image(to_integer(curr_bmax));
                 max  := (others => '0');
                 bmax := to_zbin(0);
             else
