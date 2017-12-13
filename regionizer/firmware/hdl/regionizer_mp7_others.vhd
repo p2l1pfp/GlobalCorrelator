@@ -28,8 +28,8 @@ architecture Behavioral of regionizer_mp7_others is
     ----- stuff to go from our initial state to the regionizer input
     signal read_in  : std_logic_vector(N_SECTORS-1 downto 0); -- whether we're sending data to the regionizer to be read 
     signal links_in : particles(N_SECTORS-1 downto 0); -- input particles for the regionizer
-    signal first_in: std_logic_vector(N_SECTORS-1 downto 0);   -- counter in sync with input particles for the regionizer
-    signal last_in: std_logic_vector(N_SECTORS-1 downto 0);   -- counter in sync with input particles for the regionizer
+    signal first_in: std_logic_vector(N_SECTORS-1 downto 0);  -- true if this is the first particle in output
+    signal last_in: std_logic_vector(N_SECTORS-1 downto 0);   -- true if this is the last particle in output
     ----- stuff to go from out process input to our output ports
     signal links_out   : particles(N_OBJ-1 downto 0); -- input particles for the regionizer
     signal links_out_valid : std_logic; -- valid output from the regionizer

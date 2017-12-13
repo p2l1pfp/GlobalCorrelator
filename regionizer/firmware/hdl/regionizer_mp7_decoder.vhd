@@ -16,7 +16,6 @@ entity regionizer_mp7_decoder is
         mp7_in    : in  word32; -- input words 
         read_out   : out std_logic;                       -- whether we're sending data to the regionizer to be read 
         links_out  : out particle; -- input particles for the regionizer
-        --counter_out: out natural range 0 to N_CLOCK-1;    -- counter in sync with input particles for the regionizer
         first_out  : out std_logic; -- true if this is the first particle in output
         last_out   : out std_logic  -- true if this is the last particle in output
     );
@@ -28,7 +27,6 @@ architecture Behavioral of regionizer_mp7_decoder is
     signal read_in   : std_logic;                     -- whether I had an input valid frame before this
     signal in_buffer : word32; -- buffers of input data (we need two words to make one particle)
     ----- stuff to go from our initial state to the regionizer input
-    --signal in_counter: natural range 0 to N_CLOCK-1;   -- counter in sync with input particles for the regionizer
     signal is_first   : std_logic;
     signal is_last   : std_logic;
     signal timer_tick : std_logic;
@@ -56,7 +54,6 @@ begin
                 in_buffer <= mp7_in;
                 valid_in <= '1';
                 read_in <= '0';
-                --in_counter <= 0;
                 is_first   <= '1';
                 timer_tick <= '1';
             elsif mp7_valid = '1' then
@@ -65,7 +62,6 @@ begin
                     in_buffer <= mp7_in;
                     is_first <= is_new_train;
                     timer_tick <= '1';
-                    --if in_counter < N_IN_CLOCK-1 then in_counter <= in_counter + 1; else in_counter <= 0; end if;
                 else
                     read_in <= '1';
                     links_out <= to_particle(mp7_in, in_buffer);
@@ -83,7 +79,6 @@ begin
     end process;
 
     read_out    <= read_in;
-    --counter_out <= in_counter;
     first_out <= is_first;
     last_out <= is_last;
 end Behavioral;

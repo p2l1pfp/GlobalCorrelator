@@ -22,40 +22,38 @@ entity bram_delay is
 end bram_delay;
 
 architecture rtl of bram_delay is
+    constant MY_DELAY : natural := DELAY-3; -- 3 clock cycles of delay are already there because of registers & logic
     signal dfull: std_logic_vector(35 downto 0);
     signal qfull: std_logic_vector(35 downto 0);
     signal raddr: std_logic_vector(13 downto 0);
     signal waddr: std_logic_vector(13 downto 0);
-    signal rindex: unsigned(8 downto 0);
-    signal windex: unsigned(8 downto 0);
-    constant MY_DELAY : natural := DELAY-3; -- 3 clock cycles of delay are already there because of registers & logic
-    constant zero_index : unsigned(8 downto 0) := to_unsigned(0, 9);
-    constant one_index : unsigned(8 downto 0) := to_unsigned(1, 9);
-    constant half_index : unsigned(8 downto 0) := to_unsigned(MY_DELAY-1, 9);  
-    constant max_index : unsigned(8 downto 0) := to_unsigned(2*MY_DELAY-1, 9); 
+    signal rindex: natural range 0 to 2*MY_DELAY-1;
+    signal windex: natural range 0 to 2*MY_DELAY-1;
+    constant half_index : natural := MY_DELAY-1;  
+    constant max_index : natural := 2*MY_DELAY-1; 
 begin
-   process(clk)
+    process(clk)
     begin
         if rising_edge(clk) then
             if rst = '1' then
                 rindex <= half_index;
-                windex <= zero_index;
+                windex <= 0;
             else 
                 if rindex = max_index then
-                    rindex <= zero_index;
+                    rindex <= 0;
                 else
-                    rindex <= rindex + one_index;
+                    rindex <= rindex + 1;
                 end if;
                 if windex = max_index then
-                    windex <= zero_index;
+                    windex <= 0;
                 else
-                    windex <= windex + one_index;
-                end if;
+                    windex <= windex + 1;
+               end if;
             end if;
         end if;
     end process;
-    raddr(13 downto 5) <= std_logic_vector(rindex);
-    waddr(13 downto 5) <= std_logic_vector(windex);
+    raddr(13 downto 5) <= std_logic_vector(to_unsigned(rindex,9));
+    waddr(13 downto 5) <= std_logic_vector(to_unsigned(windex,9));
     raddr(4 downto 0) <= (others => '0'); 
     waddr(4 downto 0) <= (others => '0'); 
     dfull(N_BITS-1 downto 0) <= d;

@@ -16,7 +16,6 @@ entity regionizer_mp7_decoder_twofibers is
         mp7_in    : in  words32(1 downto 0); -- input words 
         read_out   : out std_logic;                       -- whether we're sending data to the regionizer to be read 
         links_out  : out particle; -- input particles for the regionizer
-        --counter_out: out natural range 0 to N_CLOCK-1;    -- counter in sync with input particles for the regionizer
         first_out  : out std_logic; -- true if this is the first particle in output
         last_out   : out std_logic  -- true if this is the last particle in output
     );
@@ -30,7 +29,6 @@ architecture Behavioral of regionizer_mp7_decoder_twofibers is
     signal in_buffer   : words32(1 downto 0); -- buffers of input data (we need two words to make one particle)
     signal link_buffer : particle; -- particles to delay by one clock
     ----- stuff to go from our initial state to the regionizer input
-    --signal in_counter: natural range 0 to N_CLOCK-1;   -- counter in sync with input particles for the regionizer
     signal is_first   : std_logic;
     signal is_new_train : std_logic;
 begin
@@ -58,11 +56,9 @@ begin
             elsif mp7_valid(0) = '1' then
                 if in_odd = '0' then -- second frame of any wagon
                     if read_in = '0' then -- second frame of the first wagon
-                        --in_counter <= 0;
                         is_first   <= '1';
                     else
                         is_first <= is_new_train;
-                        --if in_counter < N_CLOCK-1 then in_counter <= in_counter + 1; else in_counter <= 0; end if;
                     end if;
                     links_out   <= to_particle(mp7_in(0), in_buffer(0));
                     link_buffer <= to_particle(mp7_in(1), in_buffer(1));
@@ -72,7 +68,6 @@ begin
                     in_buffer <= mp7_in;
                     links_out <= link_buffer;
                     is_first <= is_new_train;
-                    --if in_counter < N_CLOCK-1 then in_counter <= in_counter + 1; else in_counter <= 0; end if;
                     in_odd <= '0';
                     read_in <= '1';
                 end if;
@@ -91,7 +86,6 @@ begin
     end process;
 
     read_out    <= read_in;
-    --counter_out <= in_counter;
     first_out <= is_first;
 end Behavioral;
         
