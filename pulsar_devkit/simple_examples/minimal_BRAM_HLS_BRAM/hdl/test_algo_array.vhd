@@ -17,7 +17,8 @@ architecture Behavioral of test_algo_array is
     signal bram_to_ila : STD_LOGIC_VECTOR(63 downto 0);
     signal bram_address : STD_LOGIC_VECTOR(0 downto 0) := "0";
     signal bram2_address : std_logic_vector(0 downto 0):="0"; 
---    attribute mark_debug : string;
+    signal bram2_wen : std_logic_vector(0 downto 0);
+    --    attribute mark_debug : string;
 --    attribute mark_debug of bram_to_hls : signal is "true"; 
 
     component blk_mem_gen_0
@@ -91,7 +92,7 @@ begin
        PORT MAP(
                 clka  => clk1, 
                 ena   => '1',
-                wea   => "0", 
+                wea   => bram2_wen,
                 addra => bram2_address,
                 dina  => hls_to_bram,--x"0000000000000000", 
                 douta => bram_to_ila);
@@ -108,7 +109,7 @@ begin
           inA_V_ce0 => open,
           inB_V_ce0 => open,
           outA_V_ce0 => open,
-          outA_V_we0 => open,
+          outA_V_we0 => bram2_wen(0),
           inA_V_address0 => bram_address,
           inB_V_address0 => bram_address,
           outA_V_address0 => bram2_address,
