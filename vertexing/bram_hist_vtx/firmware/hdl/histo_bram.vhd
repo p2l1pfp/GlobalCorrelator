@@ -10,17 +10,16 @@ use work.bhv_data_types.all;
 -- hard version, instantiating the RAMB18E1 primitive
 entity histo_bram is
     generic(
-        BANK_BITS : natural := 3;
         SECTOR : natural := 999
     );
     port(
         clk : in std_logic;
-        adder_bank : in unsigned(BANK_BITS-1 downto 0);
+        adder_bank : in std_logic;
         adder_bin : in zbin_t;
         adder_in : in ptsum_t;
         adder_out : out ptsum_t;
         adder_we  : in std_logic;
-        reader_bank: in unsigned(BANK_BITS-1 downto 0);
+        reader_bank: in std_logic;
         reader_bin : in zbin_t;
         reader_inl  : in  ptsum_t;
         reader_inh  : in  ptsum_t;
@@ -83,10 +82,10 @@ begin
 
     assert reader_bank /= adder_bank report "Bank collision" severity failure;
 
-    a_addr(12 downto 10) <= std_logic_vector(adder_bank); 
+    a_addr(10) <= adder_bank; 
     a_addr( 9 downto 3) <= std_logic_vector(adder_bin); 
 
-    b_addr(12 downto 10) <= std_logic_vector(reader_bank); 
+    b_addr(10) <= reader_bank; 
     b_addr( 9 downto 4) <= std_logic_vector(reader_bin(zbin_t'length-1 downto 1)); 
     
     a_we <= (others => adder_we);

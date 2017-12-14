@@ -18,7 +18,6 @@ entity bhv_mp7 is
 end bhv_mp7;
 
 architecture Behavioral of bhv_mp7 is
-    type   banks is array(natural range <>) of unsigned(2 downto 0);
     signal read_in  : std_logic_vector(BHV_NSECTORS-1 downto 0);  -- whether we're sending data to the algo 
     signal tracks_in : particles(BHV_NSECTORS-1 downto 0);        -- input tracks 
     signal first_in: std_logic_vector(BHV_NSECTORS-1 downto 0);   -- whether this is the first track of an event 
@@ -27,7 +26,7 @@ architecture Behavioral of bhv_mp7 is
     signal go_in,  first_in_del, hist_new : std_logic_vector(BHV_NSECTORS-1 downto 0);
     signal val_in, hist_h, hist_l : ptsum_arr_t(BHV_NSECTORS-1 downto 0);
     signal bin_in, hist_bin : zbin_arr_t(BHV_NSECTORS-1 downto 0);
-    signal hist_bank : banks(BHV_NSECTORS-1 downto 0);
+    signal hist_bank : std_logic_vector(BHV_NSECTORS-1 downto 0);
     --
     signal red1_b : zbin_arr_t(5 downto 0);
     signal red2_b : zbin_arr_t(1 downto 0);
@@ -65,8 +64,8 @@ begin
     gen_debug: for i in BHV_NSECTORS-1 downto 0 generate
         mp7_outv(2*i+0+3) <= '1';
         mp7_outv(2*i+1+3) <= '1';
-        mp7_out(2*i+0+3)(31 downto 27) <= (others => '0');
-        mp7_out(2*i+0+3)(26 downto 24) <= std_logic_vector(hist_bank(i));
+        mp7_out(2*i+0+3)(31 downto 25) <= (others => '0');
+        mp7_out(2*i+0+3)(     24     ) <= hist_bank(i);
         mp7_out(2*i+0+3)(23 downto 16) <= (16 => hist_new(i), others => '0');
         mp7_out(2*i+0+3)(15 downto zbin_t'length)  <= (others => '0');
         mp7_out(2*i+0+3)(zbin_t'length-1 downto 0) <= std_logic_vector(hist_bin(i));

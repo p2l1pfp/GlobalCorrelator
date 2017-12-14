@@ -17,7 +17,7 @@ entity bhv_core is
         val : in ptsum_t;
         new_event : in std_logic;
         out_new  : out std_logic;
-        out_bank : out unsigned(BANK_BITS-1 downto 0);
+        out_bank : out std_logic;
         out_bin  : out zbin_t;
         out_l    : out ptsum_t;
         out_h    : out ptsum_t
@@ -25,16 +25,10 @@ entity bhv_core is
 end bhv_core;
 
 architecture Behavioral of bhv_core is
-    subtype bank is unsigned(BANK_BITS-1 downto 0);
-    type    banks is array(natural range <>) of bank;
-    constant ZERO_BANK : bank := to_unsigned(    0,     bank'length);
-    constant  ONE_BANK : bank := to_unsigned(    1,     bank'length);
-    constant LAST_BANK : bank := to_unsigned(N_BANKS-1, bank'length);
     signal go_nodup  : std_logic := '0';
     signal bin_nodup : zbin_t := (others => '0');
     signal val_nodup : ptsum_t := (others => '0');
-    signal adder_bank  : bank := ZERO_BANK;
-    signal reader_bank : bank := ONE_BANK;
+    signal adder_bank  : std_logic := '0';
     signal adder_bin : zbin_t := (others => '0');
     signal adder_in : ptsum_t := (others => '0');
     signal adder_out : ptsum_t := (others => '0');
@@ -43,7 +37,7 @@ architecture Behavioral of bhv_core is
 
     constant NP : natural := 1; 
     signal reader_bins  : zbin_arr_t(NP downto 0) := (others => (others => '0'));
-    signal reader_banks : banks(NP downto 0)      := (others => ONE_BANK);
+    signal reader_banks : std_logic_vector(NP downto 0) := (others => '1');
     signal reader_new   : std_logic_vector(NP downto 0) := (others => '0');
     
 begin
@@ -81,18 +75,10 @@ begin
     begin
         if rising_edge(clk) then
             if new_event_del = '1' and reader_new(NP) = '0' then
-                --report "This is a new event. old adder bank " & integer'image(to_integer(adder_bank)) & " reader bank " & integer'image(to_integer(reader_banks(NP)));
+                --report "This is a new event. old adder bank " & std_logic'image(adder_bank) & " reader bank " & std_logic'image(reader_banks(NP));
                 -- go to a new bank
-                if adder_bank /= LAST_BANK then
-                    adder_bank <= adder_bank + ONE_BANK;
-                else
-                    adder_bank <= ZERO_BANK;
-                end if;
-                if reader_banks(NP) /= LAST_BANK then
-                    reader_banks(NP) <= reader_banks(NP) + ONE_BANK;
-                else
-                    reader_banks(NP) <= ZERO_BANK;
-                end if;
+                adder_bank <= not adder_bank;
+                reader_banks(NP) <= not reader_banks(NP);
                 reader_bins(NP) <= to_zbin(0);
             else
                 reader_bins(NP) <= reader_bins(NP) + to_zbin(2);
