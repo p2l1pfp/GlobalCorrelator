@@ -49,7 +49,7 @@ architecture Behavioral of bhv_core is
 begin
     dupmerge : entity work.duplicate_merger
         port map(clk => clk,
-                  in_go => go,        in_bin => bin,        in_val => val, 
+                  in_go => go,        in_bin => bin,        in_val => val,       in_first  => new_event,
                  out_go => go_nodup, out_bin => bin_nodup, out_val => val_nodup);
 
     adder : entity work.histo_double_add
