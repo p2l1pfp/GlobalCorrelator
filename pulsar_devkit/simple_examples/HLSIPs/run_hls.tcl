@@ -11,10 +11,15 @@ open_project -reset proj0
 #add_files -tb simple_algo_test.cpp 
 #add_files -tb simple_algo_ref.cpp
 
-set_top simple_algo_mt_hw
-add_files src/simple_algo_mt.cpp
-add_files -tb simple_algo_mt_test.cpp 
-add_files -tb simple_algo_mt_ref.cpp
+#set_top simple_algo_mt_hw
+#add_files src/simple_algo_mt.cpp
+#add_files -tb simple_algo_mt_test.cpp 
+#add_files -tb simple_algo_mt_ref.cpp
+
+set_top simple_algo_array_hw
+add_files src/simple_algo_array.cpp
+add_files -tb simple_algo_array_test.cpp 
+add_files -tb simple_algo_array_ref.cpp
 
 #set_top simple_algo_add4vec_hw
 #add_files src/simple_algo_add4vec.cpp
