@@ -59,6 +59,7 @@ architecture Behavioral of test_algo_array is
 
 begin
 
+  hls_to_bram(63 downto 32) <= x"00000000";                             
     --data_out <= x"00000000";
 
     process(clk1)
@@ -72,7 +73,7 @@ begin
           --  else
            --     bram_address <= "1";
            -- end if;
-           
+          
             data_out <= bram_to_hls;
 
         end if; -- clk1 rising edge
@@ -101,7 +102,7 @@ begin
         PORT MAP(
                 --outA_V_ap_vld => open,
           ap_clk => clk1,
-          ap_rst => '1',
+          ap_rst => '0',
           ap_start => '1',
           ap_done => open,
           ap_idle => open,

@@ -7,12 +7,12 @@ end top_tb;
 architecture Behavioral of top_tb is
 
   -- Component for unit under test
-  component test_algo
+  component test_algo_array
     port(
       clk1 : in STD_LOGIC;
       clk2 : in STD_LOGIC;
-      data_in : in STD_LOGIC_VECTOR(31 downto 0);
-      data_out : out STD_LOGIC_VECTOR(31 downto 0)
+      data_in : in STD_LOGIC_VECTOR(63 downto 0);
+      data_out : out STD_LOGIC_VECTOR(63 downto 0)
       );
   end component;
 
@@ -23,7 +23,7 @@ architecture Behavioral of top_tb is
   -- Stimulus signals
   signal clk1 : STD_LOGIC := '0';
   signal clk2 : STD_LOGIC := '0';
-  signal data_in : STD_LOGIC_VECTOR(31 downto 0);
+  signal data_in : STD_LOGIC_VECTOR(63 downto 0);
   signal data_reader_reset : STD_LOGIC := '0';
   
   -- Dummy signals
@@ -34,10 +34,10 @@ architecture Behavioral of top_tb is
 begin
 
   -- Instantiate unit under test 
-  uut : test_algo port map (
+  uut : test_algo_array port map (
     clk1 => clk1,
     clk2 => clk2,
-    data_in => data_in,
+    data_in => x"0000000000000000",
     data_out => open
     );
 
