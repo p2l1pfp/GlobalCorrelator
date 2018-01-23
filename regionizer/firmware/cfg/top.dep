@@ -1,0 +1,7 @@
+include mp7_regionizer_wrapper.dep
+include -c mp7:boards/mp7/base_fw/mp7xe_690
+src top_decl.vhd
+src -c mp7:boards/mp7/base_fw/common mp7_top_decl.vhd
+src -c mp7:boards/mp7/base_fw/mp7xe_690 mp7_brd_decl.vhd
+setup build.tcl
+
