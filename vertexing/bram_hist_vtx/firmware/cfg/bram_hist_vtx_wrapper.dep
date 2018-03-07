@@ -1,0 +1,7 @@
+include bram_hist_vtx.dep
+src mp7_payload.vhd
+src -c mp7:components/mp7_datapath mp7_data_types.vhd
+src -c ipbus-firmware:components/ipbus_core ipbus_package.vhd
+src -c mp7:components/mp7_ttc mp7_ttc_decl.vhd
+?toolset=="Vivado"? src -c regionizer ../ucf/mp7_regionizer_wrapper.tcl
+addrtab -c regionizer -t mp7_payload.xml

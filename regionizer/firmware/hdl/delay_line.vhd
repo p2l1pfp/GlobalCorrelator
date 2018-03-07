@@ -2,9 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.pftm_data_types.all;
-use work.pftm_constants.all;
-
 entity delay_line is
     generic(
         N_BITS : natural;
