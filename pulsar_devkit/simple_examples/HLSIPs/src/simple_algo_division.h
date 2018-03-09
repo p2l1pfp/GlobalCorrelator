@@ -5,17 +5,15 @@
 #include "ap_fixed.h"
 
 // size of the LUT
-#define N_TABLE_SIZE_NUM 2048
-#define N_TABLE_SIZE_DEN 2048
-#define RANGE_NUM 2048
-#define RANGE_DEN 2048
+#define N_TABLE_SIZE_NUM 1533 //Maximum number is 2045 for some reason (SIGSEGV otherwise)
+#define N_TABLE_SIZE_DEN 1533 //Maximum number is 2045 for some reason (SIGSEGV otherwise)
 
 typedef ap_uint<11> val_t;
-// Type used for LUT output (ap_fixed<X,Y>)
+// Type used for LUT (ap_fixed<X,Y>)
 #define AP_FIXED_SIZE 14
 #define AP_FIXED_DEC 11
+//typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> val_t;
 typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> result_t;
-
 
 // reference and hardware functions
 void simple_algo_division_ref(int in_num, int in_den, float& out);
@@ -26,45 +24,38 @@ void simple_algo_division_hw(val_t data_num, val_t data_den, result_t& res);
 //       Division
 // *************************************************
 template<class data_T, int N_TABLE_NUM, int N_TABLE_DEN>
-void init_division_table(data_T table_out[N_TABLE_NUM][N_TABLE_DEN]) {
-    std::cout << "init sfsg1" << std::endl;
+void init_division_table(data_T table_out[N_TABLE_NUM*N_TABLE_DEN]) {
     // Implement division lookup
     for (int inum = 0; inum < N_TABLE_NUM; inum++) {
         for (int iden = 0; iden < N_TABLE_DEN; iden++) {
-            // Convert from table index to X-value (unsigned 4-bit, range 0 to +4)
-            //float in_val = (TANH_RANGE)*((N_TABLE-1)-inum)/float(N_TABLE);
-            // Next, compute lookup table function
-            data_T real_val = (iden>0) ? float(inum)/iden : 0; //tanh(in_val);
-            //std::cout << "Tanh:  Lookup table Index: " <<  inum<< " In Value: " << in_val << " Result: " << real_val << std::endl;
-            table_out[inum][iden] = real_val;
+            int index = (inum*N_TABLE_NUM)+iden;
+            // Compute lookup table function
+            data_T real_val = (iden>0) ? float(inum)/iden : 0;
+            table_out[index] = real_val;
         }
     }
-    std::cout << "init sfsg2" << std::endl;
     return;
 }
 
 
 template<class data_T, class res_T, int TABLE_SIZE_NUM, int TABLE_SIZE_DEN>
 void division(data_T &data_num, data_T &data_den, res_T &res) {
-    std::cout << "sfsg1 " << std::endl;
     // Initialize the lookup table
-    res_T division_table[TABLE_SIZE_NUM][TABLE_SIZE_DEN];
+    res_T division_table[TABLE_SIZE_NUM*TABLE_SIZE_DEN];
     init_division_table<res_T, TABLE_SIZE_NUM, TABLE_SIZE_DEN>(division_table);
-    std::cout << "sfsg2 " << std::endl;
+
     // Index into the lookup table based on data
-    int index_num, index_den;
+    int index_num, index_den, index;
 
-    #pragma HLS PIPELINE
+    //#pragma HLS PIPELINE
 
-    index_num = (1-data_num/RANGE_NUM)*TABLE_SIZE_NUM;
-    index_den = (1-data_den/RANGE_DEN)*TABLE_SIZE_DEN;
-    std::cout << "sfsg3 " << std::endl;
-    if (index_num < 0) index_num = 0;
-    if (index_den < 0) index_den = 0;
-    if (index_num > TABLE_SIZE_NUM-1) index_num = TABLE_SIZE_NUM-1;
-    if (index_den > TABLE_SIZE_DEN-1) index_den = TABLE_SIZE_DEN-1;
-    res = division_table[index_num][index_den];
-    std::cout << "sfsg4 " << std::endl;
+    if (data_num < 0) data_num = 0;
+    if (data_den < 0) data_den = 0;
+    if (data_num > TABLE_SIZE_NUM-1) data_num = TABLE_SIZE_NUM-1;
+    if (data_den > TABLE_SIZE_DEN-1) data_den = TABLE_SIZE_DEN-1;
+    index = (data_num*TABLE_SIZE_NUM) + data_den;
+    res = division_table[index];
+
     return;
 }
 
@@ -73,17 +64,12 @@ void division(data_T &data_num, data_T &data_den, res_T &res) {
 template<class data_T, class res_T>
 void division(data_T &data_num, data_T &data_den, res_T &res) { 
     /* Get the division value from the LUT */
-    std::cout << "top: sfsg0 " << std::endl;
     if(data_den==0) {
-        std::cout << "WARNING::division::data_num==0" << std::endl;
+    //if(data(21,11)==0) {
+        std::cout << "WARNING::division::data_den==0" << std::endl;
         return;
     }
-    std::cout << "top: sfsg1 " << std::endl;
-    std::cout << data_num << std::endl;
-    std::cout << data_den << std::endl;
-    std::cout << res << std::endl;
     division<data_T, res_T, N_TABLE_SIZE_NUM, N_TABLE_SIZE_DEN>(data_num, data_den, res); 
-    std::cout << "top: sfsg2 " << std::endl;
     return;
 }
 
