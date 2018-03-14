@@ -64,7 +64,6 @@ template<class data_T, class res_T>
 void division(data_T &data_num, data_T &data_den, res_T &res) { 
     /* Get the division value from the LUT */
     if(data_den==0) {
-    //if(data(21,11)==0) {
         std::cout << "WARNING::division::data_den==0" << std::endl;
         return;
     }
