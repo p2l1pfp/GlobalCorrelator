@@ -12,7 +12,6 @@ typedef ap_uint<11> val_t;
 // Type used for LUT (ap_fixed<X,Y>)
 #define AP_FIXED_SIZE 14
 #define AP_FIXED_DEC 11
-//typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> val_t;
 typedef ap_fixed<AP_FIXED_SIZE,AP_FIXED_DEC> result_t;
 
 // reference and hardware functions
