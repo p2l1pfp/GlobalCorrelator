@@ -1,23 +1,10 @@
-#include "EvenOddIterSorter.h"
+#include "simple_algo_sort.h"
 
-ap_uint<N*M> EvenOddIterSorter (ap_uint<N*M> input_data)
+void EvenOddIterSorter (ap_uint<M> work_array[N])
 {
-	ap_uint<N*M> sorted_data;
 	bool sorting_completed;
-	
-	ap_uint<M> work_array[N];
 	ap_uint<M> even[N];
 	
-	//1. Fill in the work array
-	ap_uint<M> mask = ~0;
-	init_loop: for (unsigned i = N; i > 0; i--)
-	{
-		#pragma HLS UNROLL
-		work_array[i-1] = input_data & mask; // extract M LSBs
-		input_data >>= M;					 // shift right M bits
-	}
-
-	//2. Sort the data
 	sorting_completed = false;
 	sort_loop: while (!sorting_completed)
 	{
@@ -54,14 +41,4 @@ ap_uint<N*M> EvenOddIterSorter (ap_uint<N*M> input_data)
 		work_array[0]   = even[0];
 		work_array[N-1] = even[N-1];
 	}
-
-	//3. Write the result
-	write_res_loop: for (unsigned i = 0; i < N; i++)
-	{
-		#pragma HLS UNROLL
-		sorted_data <<= M; // shift left M bits
-		sorted_data |= work_array[i]; // write M LSBs
-	}
-
-	return sorted_data;
 }
