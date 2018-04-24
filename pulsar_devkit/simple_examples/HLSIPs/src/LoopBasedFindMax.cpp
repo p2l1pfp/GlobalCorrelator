@@ -3,6 +3,8 @@
     #include "utility.h"
 #endif
 
+
+#if !defined(OPTIMIZED) || NBINS > 128
 binvalue_t LoopBasedFindMax(binvalue_t input_array[NBINS]) {
     #pragma HLS PIPELINE II=1
     #pragma HLS array_partition variable=input_array complete dim=1
@@ -19,7 +21,7 @@ binvalue_t LoopBasedFindMax(binvalue_t input_array[NBINS]) {
     binindex_t index_array[MAXIMUM_SEARCH_SIZE];
     #pragma HLS array_partition variable=values_array complete dim=1
     #pragma HLS array_partition variable=index_array complete dim=1
-    copy_to_p2_array<binvalue_t,NBINS,MAXIMUM_SEARCH_SIZE>(input_array,values_array);
+    copy_to_p2_array<binvalue_t,binindex_t,NBINS,MAXIMUM_SEARCH_SIZE>(input_array,values_array,index_array);
     #ifdef DEBUG
         show<binvalue_t,MAXIMUM_SEARCH_SIZE>(values_array);
     #endif
@@ -61,3 +63,71 @@ binvalue_t LoopBasedFindMax(binvalue_t input_array[NBINS]) {
     #endif
     return values_array[0];
 }
+
+#else
+
+binvalue_t LoopBasedFindMax(binvalue_t input_array[NBINS]) {
+    #pragma HLS PIPELINE II=1
+    #pragma HLS array_partition variable=input_array complete dim=1
+
+    binvalue_t values_array_0[MAXIMUM_SEARCH_SIZE] = {0};
+    binvalue_t values_array_1[MAXIMUM_SEARCH_SIZE>>1] = {0};
+    binvalue_t values_array_2[MAXIMUM_SEARCH_SIZE>>2] = {0};
+    binvalue_t values_array_3[MAXIMUM_SEARCH_SIZE>>3] = {0};
+    binvalue_t values_array_4[MAXIMUM_SEARCH_SIZE>>4] = {0};
+    binvalue_t values_array_5[MAXIMUM_SEARCH_SIZE>>5] = {0};
+    binvalue_t values_array_6[MAXIMUM_SEARCH_SIZE>>6] = {0};
+    #pragma HLS array_partition variable=values_array_0 complete dim=1
+    #pragma HLS array_partition variable=values_array_1 complete dim=1
+    #pragma HLS array_partition variable=values_array_2 complete dim=1
+    #pragma HLS array_partition variable=values_array_3 complete dim=1
+    #pragma HLS array_partition variable=values_array_4 complete dim=1
+    #pragma HLS array_partition variable=values_array_5 complete dim=1
+    #pragma HLS array_partition variable=values_array_6 complete dim=1
+    binindex_t index_array_0[MAXIMUM_SEARCH_SIZE] = {0};
+    binindex_t index_array_1[MAXIMUM_SEARCH_SIZE>>1] = {0};
+    binindex_t index_array_2[MAXIMUM_SEARCH_SIZE>>2] = {0};
+    binindex_t index_array_3[MAXIMUM_SEARCH_SIZE>>3] = {0};
+    binindex_t index_array_4[MAXIMUM_SEARCH_SIZE>>4] = {0};
+    binindex_t index_array_5[MAXIMUM_SEARCH_SIZE>>5] = {0};
+    binindex_t index_array_6[MAXIMUM_SEARCH_SIZE>>6] = {0};
+    #pragma HLS array_partition variable=index_array_0 complete dim=1
+    #pragma HLS array_partition variable=index_array_1 complete dim=1
+    #pragma HLS array_partition variable=index_array_2 complete dim=1
+    #pragma HLS array_partition variable=index_array_3 complete dim=1
+    #pragma HLS array_partition variable=index_array_4 complete dim=1
+    #pragma HLS array_partition variable=index_array_5 complete dim=1
+    #pragma HLS array_partition variable=index_array_6 complete dim=1
+
+    copy_to_p2_array<binvalue_t,binindex_t,NBINS,MAXIMUM_SEARCH_SIZE>(input_array,values_array_0,index_array_0);
+
+    L1: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE; pair+=2) {
+        #pragma HLS UNROLL
+        comparator(values_array_0[pair], values_array_0[pair+1], index_array_0[pair], index_array_0[pair+1], values_array_1[pair>>1], index_array_1[pair>>1]);
+    }
+    L2: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>1; pair+=2) {
+        #pragma HLS UNROLL
+        comparator(values_array_1[pair], values_array_1[pair+1], index_array_1[pair], index_array_1[pair+1], values_array_2[pair>>1], index_array_2[pair>>1]);
+    }
+    L3: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>2; pair+=2) {
+        #pragma HLS UNROLL
+        comparator(values_array_2[pair], values_array_2[pair+1], index_array_2[pair], index_array_2[pair+1], values_array_3[pair>>1], index_array_3[pair>>1]);
+    }
+    L4: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>3; pair+=2) {
+        #pragma HLS UNROLL
+        comparator(values_array_3[pair], values_array_3[pair+1], index_array_3[pair], index_array_3[pair+1], values_array_4[pair>>1], index_array_4[pair>>1]);
+    }
+    L5: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>4; pair+=2) {
+        #pragma HLS UNROLL
+        comparator(values_array_4[pair], values_array_4[pair+1], index_array_4[pair], index_array_4[pair+1], values_array_5[pair>>1], index_array_5[pair>>1]);
+    }
+    L6: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>5; pair+=2) {
+        #pragma HLS UNROLL
+        comparator(values_array_5[pair], values_array_5[pair+1], index_array_5[pair], index_array_5[pair+1], values_array_6[pair>>1], index_array_6[pair>>1]);
+    }
+
+    return (values_array_6[0] >= values_array_6[1]) ? values_array_6[0] : values_array_6[1];
+
+}
+
+#endif

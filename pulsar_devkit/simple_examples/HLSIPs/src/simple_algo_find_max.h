@@ -59,15 +59,17 @@ inline void initialize_array(array_t arr[], const int size) {
 }
 
 //inline void copy_to_p2_array(binvalue_t input_array[NBINS], binvalue_t output_array[MAXIMUM_SEARCH_SIZE]) {
-template<class array_t, int SIZE_SRC, int SIZE_DST>
-inline void copy_to_p2_array(array_t input_array[SIZE_SRC], array_t output_array[SIZE_DST]) {
+template<class array_t, class array2_t, int SIZE_SRC, int SIZE_DST>
+inline void copy_to_p2_array(array_t input_array[SIZE_SRC], array_t output_array[SIZE_DST], array2_t output_array_index[SIZE_DST]) {
 	COPYP2LOOP1: for(unsigned int i=0; i<SIZE_SRC; ++i) {
 		#pragma HLS UNROLL
-		output_array[i] = input_array[i];
+		output_array[i]       = input_array[i];
+		output_array_index[i] = i;
 	}
 	COPYP2LOOP2: for(unsigned int i=SIZE_SRC; i<SIZE_DST; ++i) {
 		#pragma HLS UNROLL
-		output_array[i] = 0;
+		output_array[i]       = 0;
+		output_array_index[i] = MAXIMUM_SEARCH_SIZE;
 	}
 }
 
