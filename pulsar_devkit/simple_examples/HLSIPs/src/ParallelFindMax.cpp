@@ -5,7 +5,7 @@
 
 
 #if !defined(OPTIMIZED) || NBINS > 128
-binvalue_t LoopBasedFindMax(binvalue_t input_array[NBINS]) {
+binvalue_t ParallelFindMax(binvalue_t input_array[NBINS]) {
     #pragma HLS PIPELINE II=1
     #pragma HLS array_partition variable=input_array complete dim=1
 
@@ -66,7 +66,7 @@ binvalue_t LoopBasedFindMax(binvalue_t input_array[NBINS]) {
 
 #else
 
-binvalue_t LoopBasedFindMax(binvalue_t input_array[NBINS]) {
+binvalue_t ParallelFindMax(binvalue_t input_array[NBINS]) {
     #pragma HLS PIPELINE II=1
     #pragma HLS array_partition variable=input_array complete dim=1
 
