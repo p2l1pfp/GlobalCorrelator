@@ -6,6 +6,7 @@
 #endif
 
 void convert_input(hls::stream<invec> &in_hw,hls::stream<tmpvec> &out_hw) {
+	#pragma HLS inline
 	tmpvec tmprow;
 	convRow: for (int iRow = 0; iRow < N_ROWS; ++iRow) {
 		#pragma HLS PIPELINE II=1
