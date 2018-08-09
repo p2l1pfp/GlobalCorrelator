@@ -14,7 +14,7 @@ entity regionizer_mp7_decoder is
         rst : in std_logic;
         mp7_valid : in std_logic; -- 1 if words are valid (we assume it's the same for all of them)
         mp7_in    : in  word32; -- input words 
-        read_out   : out std_logic;                       -- whether we're sending data to the regionizer to be read 
+        read_out   : out std_logic; -- whether we're sending data to the regionizer to be read 
         links_out  : out particle; -- input particles for the regionizer
         first_out  : out std_logic; -- true if this is the first particle in output
         last_out   : out std_logic  -- true if this is the last particle in output

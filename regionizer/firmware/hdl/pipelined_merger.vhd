@@ -16,11 +16,14 @@ entity pipelined_merger is
     port(
         clk : in std_logic;    
         rst : in std_logic;
+        
         go       : std_logic;
         valid_in : std_logic;
+        
         list1_in : in particles(N_OBJ_SECTOR_ETA-1 downto 0);  -- \
         list2_in : in particles(N_OBJ_SECTOR_ETA-1 downto 0);  -- |- pt-sorted list of input objects in each phi sector
         list3_in : in particles(N_OBJ_SECTOR_ETA-1 downto 0);  -- /
+        
         list_out:  out particles(N_OBJ-1 downto 0);            -- pt-sorted list of output objects
         valid_out: out std_logic                               -- whether list_out is valid
     );   

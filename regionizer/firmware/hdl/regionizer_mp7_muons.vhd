@@ -59,27 +59,41 @@ begin
             short_input_delay: entity work.delay_line
                 generic map(DELAY => MP7_INPUT_DELAY, N_BITS => 33)
                 port map(clk => clk, rst => rst, 
-                                d(31 downto 0) => mp7_in(i)(31 downto 0), d(32) => mp7_valid(i), 
-                                q(31 downto 0) => mp7_in_del(i)(31 downto 0), q(32) => mp7_valid_del(i));
+                                d(31 downto 0) => mp7_in(i)(31 downto 0), 
+                                d(32) => mp7_valid(i), 
+                                q(31 downto 0) => mp7_in_del(i)(31 downto 0), 
+                                q(32) => mp7_valid_del(i));
         end generate;
 
         maybe_input_longdelay: if MP7_INPUT_DELAY > 5 generate
             long_input_delay: entity work.bram_delay
                 generic map(DELAY => MP7_INPUT_DELAY, N_BITS => 33)
                 port map(clk => clk, rst => rst, 
-                         d(31 downto 0) => mp7_in    (i)(31 downto 0), d(32) => mp7_valid    (i),
-                         q(31 downto 0) => mp7_in_del(i)(31 downto 0), q(32) => mp7_valid_del(i)); 
+                         d(31 downto 0) => mp7_in    (i)(31 downto 0), 
+                         d(32) => mp7_valid    (i),
+                         q(31 downto 0) => mp7_in_del(i)(31 downto 0), 
+                         q(32) => mp7_valid_del(i)); 
         end generate;
             
         input_decoder: entity work.regionizer_mp7_decoder
             generic map(N_OBJ_SECTOR => N_OBJ_SECTOR)
-            port map(clk => clk, rst => rst, mp7_valid => mp7_valid_del(i), mp7_in => mp7_in_del(i), 
-                     read_out => mu_read_in(i), links_out => mu_links_in(i), first_out => mu_first_in(i), last_out => mu_last_in(i));
+            port map(clk => clk, rst => rst, 
+            
+            mp7_valid => mp7_valid_del(i), 
+            mp7_in => mp7_in_del(i), 
+            
+                     read_out => mu_read_in(i), links_out => mu_links_in(i), 
+                     first_out => mu_first_in(i), last_out => mu_last_in(i));
 
         threeway_splitter: entity work.phi_splitter
             port map(clk => clk,  
-                     read_in => mu_read_in(i), data_in => mu_links_in(i), first_in => mu_first_in(i), last_in => mu_last_in(i),
-                     read_out => read_in(3*(i+1)-1 downto 3*i), data_out => links_in(3*(i+1)-1 downto 3*i), first_out => first_in(3*(i+1)-1 downto 3*i), last_out => last_in(3*(i+1)-1 downto 3*i));
+                     read_in => mu_read_in(i), data_in => mu_links_in(i), 
+                     first_in => mu_first_in(i), last_in => mu_last_in(i),
+                     
+                     read_out => read_in(3*(i+1)-1 downto 3*i), 
+                     data_out => links_in(3*(i+1)-1 downto 3*i),
+					first_out => first_in(3*(i+1)-1 downto 3*i), 
+					last_out => last_in(3*(i+1)-1 downto 3*i));
             
     end generate;
 

@@ -34,21 +34,42 @@ architecture Behavioral of regionizer_mp7_others is
     signal links_out   : particles(N_OBJ-1 downto 0); -- input particles for the regionizer
     signal links_out_valid : std_logic; -- valid output from the regionizer
 begin
+
+	
     generate_decoders: for i in N_SECTORS-1 downto 0 generate
+        
+        --if 1 fiber input 
         input_decoder_1f: if N_FIBERS_SECTOR = 1 generate
             input_decoder: entity work.regionizer_mp7_decoder
                 generic map(N_OBJ_SECTOR => N_OBJ_SECTOR)
-                port map(clk => clk, rst => rst, mp7_valid => mp7_valid(i), mp7_in => mp7_in(i), 
-                         read_out => read_in(i), links_out => links_in(i), first_out => first_in(i), last_out => last_in(i));
+                port map(clk => clk, rst => rst, 
+                
+		                mp7_valid => mp7_valid(i), 
+		                mp7_in => mp7_in(i), 
+		                
+                         read_out => read_in(i), 
+                         links_out => links_in(i), 
+                         first_out => first_in(i), 
+                         last_out => last_in(i));
         end generate input_decoder_1f;
 
+		--if 2 fiber input 
         input_decoder_2f: if N_FIBERS_SECTOR = 2 generate
             input_decoder: entity work.regionizer_mp7_decoder_twofibers
                 generic map(N_OBJ_SECTOR => N_OBJ_SECTOR)
-                port map(clk => clk, rst => rst, mp7_valid => mp7_valid(2*i+1 downto 2*i), mp7_in => mp7_in(2*i+1 downto 2*i), 
-                         read_out => read_in(i), links_out => links_in(i), first_out => first_in(i), last_out => last_in(i));
+                port map(clk => clk, rst => rst, 
+                
+                		mp7_valid => mp7_valid(2*i+1 downto 2*i), 
+                		mp7_in => mp7_in(2*i+1 downto 2*i), 
+                		
+                         read_out => read_in(i), 
+                         links_out => links_in(i), 
+                         first_out => first_in(i), 
+                         last_out => last_in(i));
         end generate input_decoder_2f;
     end generate generate_decoders;
+    
+    
 
     regionizer_pipelined: entity work.regionizer_mp7_pipelined
             generic map(
@@ -62,17 +83,28 @@ begin
                 links_in => links_in, read_in => read_in, first_in => first_in, last_in => last_in,
                 links_out => links_out, valid_out => links_out_valid);
 
-    encoder_output_2f : if N_FIBERS_OBJ = 2 generate
-      encode_output: entity work.regionizer_mp7_encoder
-          generic map(N_OBJ => N_OBJ)
-          port map(clk => clk, rst => rst, particles_in => links_out, particles_valid => links_out_valid, mp7_out => mp7_out, mp7_outv => mp7_outv);
-    end generate encoder_output_2f;
 
+
+
+
+	--if 1 fiber per output object 
     encoder_output_1f : if N_FIBERS_OBJ = 1 generate
       encode_output: entity work.regionizer_mp7_encoder_twoframes
           generic map(N_OBJ => N_OBJ)
-          port map(clk => clk, rst => rst, particles_in => links_out, particles_valid => links_out_valid, mp7_out => mp7_out, mp7_outv => mp7_outv);
+          port map(clk => clk, rst => rst, 
+          particles_in => links_out, particles_valid => links_out_valid, 
+          mp7_out => mp7_out, mp7_outv => mp7_outv);
     end generate encoder_output_1f;
+    
+    --if 2 fiber per output object 
+    encoder_output_2f : if N_FIBERS_OBJ = 2 generate
+      encode_output: entity work.regionizer_mp7_encoder
+          generic map(N_OBJ => N_OBJ)
+          port map(clk => clk, rst => rst, 
+          particles_in => links_out, particles_valid => links_out_valid, 
+          mp7_out => mp7_out, mp7_outv => mp7_outv);
+    end generate encoder_output_2f;
+
 
 end Behavioral;
         

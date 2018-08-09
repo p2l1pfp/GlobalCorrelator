@@ -20,9 +20,10 @@ entity sector_processor is
         rst : in std_logic;
         --counter_in : in natural range 0 to MAX_COUNT-1;        -- tells the number of the object presented in data_in
         first_in   : in std_logic;                              -- true if this is the first particle in input
-        last_in    : in std_logic;                              -- true if this is the first particle in input
+        last_in    : in std_logic;                              -- true if this is the last particle in input
         read_in    : in std_logic;                              -- set to true when the data_in should be read (every two clocks)
         data_in   : in  particle;                               -- next particle to read
+        
         data_out  : out particles(N_OBJ_SECTOR_ETA-1 downto 0); -- pt-sorted and trimmed list of particles in the output
         valid_out : out std_logic                               -- set to 1 for one clock cycle when data_out is complete
     );
