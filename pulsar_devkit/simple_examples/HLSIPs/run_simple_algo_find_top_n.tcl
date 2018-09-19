@@ -1,20 +1,16 @@
 # open the project, don't forget to reset
 open_project -reset proj0
-set maxMethod ParallelFindMax
-#set maxMethod FourCompParallelFindMax
-#set maxMethod LinearFindMax
-set_top ${maxMethod}
-add_files src/${maxMethod}.cpp -cflags "-std=c++0x"
-#-DDEBUG
-#-DOPTIMIZED
-add_files -tb simple_algo_find_max_test.cpp -cflags "-DMAX_METHOD=${maxMethod}"
-add_files -tb input_data.dat
-add_files -tb input_data_72.dat
-add_files -tb input_data_200.dat
-add_files -tb src/utility.h
+# method options:
+#    SortAndSelect
+#    ParallelFindMax
+set method SortAndSelect
+set_top FindTopN_${method}
+add_files src/simple_algo_find_top_n.cpp -cflags "-DDEBUG=0"
+add_files -tb simple_algo_find_top_n_test.cpp -cflags "-DMETHOD=${method} -std=c++11"
+add_files -tb src/ParallelFindMax.cpp -cflags "-std=c++0x"
 
 # reset the solution
-open_solution -reset "solution1"
+open_solution -reset "solution1_FindTopN_${method}_nOutput10"
 # part options:
 #	xcku9p-ffve900-2-i-EVAL
 #	xc7vx690tffg1927-2

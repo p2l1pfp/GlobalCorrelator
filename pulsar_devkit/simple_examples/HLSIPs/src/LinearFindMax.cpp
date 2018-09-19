@@ -1,6 +1,6 @@
 #include "simple_algo_find_max.h"
 
-binvalue_t LinearFindMax(binvalue_t input_array[NBINS]) {
+binvalue_t LinearFindMax(binvalue_t input_array[NBINS], binindex_t &max_index) {
 	#pragma HLS PIPELINE II=1
     #pragma HLS array_partition variable=input_array complete dim=1
 
@@ -14,5 +14,6 @@ binvalue_t LinearFindMax(binvalue_t input_array[NBINS]) {
         }
     }
 
+    max_index = current_max_index;
     return current_max;
 }

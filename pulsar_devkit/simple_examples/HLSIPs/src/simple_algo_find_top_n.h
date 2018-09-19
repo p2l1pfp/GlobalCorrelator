@@ -1,6 +1,6 @@
 #include <ap_int.h>
+#include <assert.h>
 
-//From: https://stackoverflow.com/questions/27581671/how-to-compute-log-with-the-preprocessor
 #define IS_REPRESENTIBLE_IN_D_BITS(D, N)                \
    (((unsigned long) N >= (1UL << (D - 1)) && (unsigned long) N < (1UL << D)) ? D : -1)
 #define BITS_TO_REPRESENT(N)                             \
@@ -44,16 +44,23 @@
 #define IS_EVEN(N) (!((N) & 1))
 #define CHECK_EVENODD(N) ((N%2==0)?1:0) //1 if even and 0 if odd
 
-#define NBINS 72//200//72//16 //number of data items
-#define NBITS_PER_BIN 9 //number of bits in each data item
-#define BITS_TO_STORE_NBINS BITS_TO_REPRESENT(NBINS)+1
+#define M 9 //number of bits in each data item
+#define N 128 //number of data items total
+#define N_Partial 32 //number of data items per sort
+#define S N/N_Partial //number of sorts
+#define O 10 //number of output items
+#if (n & (n - 1)) == 0
+	#define BITS_TO_STORE_NBINS BITS_TO_REPRESENT(N)
+#else
+	#define BITS_TO_STORE_NBINS BITS_TO_REPRESENT(N)+1
+#endif
 #define MAXIMUM_SEARCH_SIZE PWRTWO(BITS_TO_STORE_NBINS-1)
 #define MAXIMUM_SEARCH_SIZE_ITERATIONS BITS_TO_REPRESENT(MAXIMUM_SEARCH_SIZE)-1
 #define MAXIMUM_SEARCH_SIZE_ITERATIONS_TWO (IS_ODD(MAXIMUM_SEARCH_SIZE_ITERATIONS) ? 1 : 0)
 #define MAXIMUM_SEARCH_SIZE_ITERATIONS_FOUR (IS_EVEN(MAXIMUM_SEARCH_SIZE_ITERATIONS) ? MAXIMUM_SEARCH_SIZE_ITERATIONS>>1 : (MAXIMUM_SEARCH_SIZE_ITERATIONS-1)>>1)
 
-typedef ap_uint<NBITS_PER_BIN> binvalue_t;
-typedef ap_uint<BITS_TO_STORE_NBINS> binindex_t;
+typedef ap_uint<M> value_t;
+typedef ap_uint<BITS_TO_STORE_NBINS> index_t;
 
 template<class array_t>
 inline void initialize_array(array_t arr[], const int size) {
@@ -63,7 +70,6 @@ inline void initialize_array(array_t arr[], const int size) {
     }
 }
 
-//inline void copy_to_p2_array(binvalue_t input_array[NBINS], binvalue_t output_array[MAXIMUM_SEARCH_SIZE]) {
 template<class array_t, class array2_t, int SIZE_SRC, int SIZE_DST>
 inline void copy_to_p2_array(array_t input_array[SIZE_SRC], array_t output_array[SIZE_DST], array2_t output_array_index[SIZE_DST]) {
     COPYP2LOOP1: for(unsigned int i=0; i<SIZE_SRC; ++i) {
@@ -99,27 +105,39 @@ inline void comparator(bv_t bin1, bv_t bin2, bi_t binindex1, bi_t binindex2, bv_
 }
 
 template<class bv_t, class bi_t>
-inline void comparator4(bv_t bin1, bv_t bin2, bv_t bin3, bv_t bin4,
-                        bi_t binindex1, bi_t binindex2, bi_t binindex3, bi_t binindex4,
-                        bv_t &res, bi_t &resindex) {
-    if (bin1 >= bin2 && bin1 >= bin3 && bin1 >= bin4) {
-        res = bin1;
-        resindex = binindex1;
+void ParallelFindMax(bv_t input_array[N], bv_t &max, bi_t &max_index) {
+    #pragma HLS PIPELINE II=1
+    #pragma HLS array_partition variable=input_array complete dim=1
+
+    bv_t values_array[MAXIMUM_SEARCH_SIZE];
+    bi_t index_array[MAXIMUM_SEARCH_SIZE];
+    #pragma HLS array_partition variable=values_array complete dim=1
+    #pragma HLS array_partition variable=index_array complete dim=1
+    copy_to_p2_array<bv_t,bi_t,N,MAXIMUM_SEARCH_SIZE>(input_array,values_array,index_array);
+
+    bv_t larger_of_pair_array[MAXIMUM_SEARCH_SIZE];
+    bi_t larger_of_pair_index_array[MAXIMUM_SEARCH_SIZE];
+    #pragma HLS array_partition variable=larger_of_pair_array complete dim=1
+    #pragma HLS array_partition variable=larger_of_pair_index_array complete dim=1
+
+    ITERATIONLOOP: for (unsigned int iteration=0; iteration<MAXIMUM_SEARCH_SIZE_ITERATIONS; ++iteration) {
+        #pragma HLS UNROLL
+
+        initialize_array<bv_t>(larger_of_pair_array,MAXIMUM_SEARCH_SIZE);
+        initialize_array<bi_t>(larger_of_pair_index_array,MAXIMUM_SEARCH_SIZE);
+
+        COMPARATORLOOP: for (int pair=0; pair<PWRTWO(MAXIMUM_SEARCH_SIZE_ITERATIONS-iteration); pair+=2) {
+            #pragma HLS UNROLL
+            comparator<bv_t,bi_t>(values_array[pair], values_array[pair+1], index_array[pair], index_array[pair+1], larger_of_pair_array[pair>>1],larger_of_pair_index_array[pair>>1]);
+        }
+
+        copy_array<bv_t,MAXIMUM_SEARCH_SIZE>(larger_of_pair_array,values_array);
+        copy_array<bi_t,MAXIMUM_SEARCH_SIZE>(larger_of_pair_index_array,index_array);
     }
-    else if (bin2 >= bin3 && bin2 >= bin4) {
-        res = bin2;
-        resindex = binindex2;
-    }
-    else if (bin3 >= bin4) {
-        res = bin3;
-        resindex = binindex3;
-    }
-    else {
-        res = bin4;
-        resindex = binindex4;
-    }
+
+    max = values_array[0];
+    max_index = index_array[0];
 }
 
-binvalue_t ParallelFindMax(binvalue_t input_array[NBINS], binindex_t &max_index);
-binvalue_t FourCompParallelFindMax(binvalue_t input_array[NBINS], binindex_t &max_index);
-binvalue_t LinearFindMax(binvalue_t input_array[NBINS], binindex_t &max_index);
+void FindTopN_SortAndSelect(value_t work_array[N], value_t result_array[O]);
+void FindTopN_ParallelFindMax(value_t work_array[N], value_t result_array[O]);

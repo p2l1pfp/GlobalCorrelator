@@ -3,7 +3,7 @@
     #include "utility.h"
 #endif
 
-binvalue_t FourCompParallelFindMax(binvalue_t input_array[NBINS]) {
+binvalue_t FourCompParallelFindMax(binvalue_t input_array[NBINS], binindex_t &max_index) {
     #pragma HLS PIPELINE II=1
     #pragma HLS array_partition variable=input_array complete dim=1
 
@@ -68,8 +68,8 @@ binvalue_t FourCompParallelFindMax(binvalue_t input_array[NBINS]) {
 
         initialize_array<binvalue_t>(larger_of_pair_array,MAXIMUM_SEARCH_SIZE);
         initialize_array<binindex_t>(larger_of_pair_index_array,MAXIMUM_SEARCH_SIZE);
-        comparator(values_array[0], values_array[1], index_array[0], index_array[1],
-                   larger_of_pair_array[0],larger_of_pair_index_array[0]);
+        comparator<binvalue_t,binindex_t>(values_array[0], values_array[1], index_array[0], index_array[1],
+                                          larger_of_pair_array[0],larger_of_pair_index_array[0]);
         copy_array<binvalue_t,MAXIMUM_SEARCH_SIZE>(larger_of_pair_array,values_array);
         copy_array<binindex_t,MAXIMUM_SEARCH_SIZE>(larger_of_pair_index_array,index_array);
     }
@@ -80,5 +80,6 @@ binvalue_t FourCompParallelFindMax(binvalue_t input_array[NBINS]) {
     #ifdef DEBUG
         std::cout<<"values_array[0]="<<values_array[0]<<std::endl;
     #endif
+    max_index = index_array[0];
     return values_array[0];
 }

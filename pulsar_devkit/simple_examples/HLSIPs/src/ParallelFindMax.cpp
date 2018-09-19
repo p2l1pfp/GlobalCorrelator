@@ -5,7 +5,7 @@
 
 
 #if !defined(OPTIMIZED) || NBINS > 128
-binvalue_t ParallelFindMax(binvalue_t input_array[NBINS]) {
+binvalue_t ParallelFindMax(binvalue_t input_array[NBINS], binindex_t &max_index) {
     #pragma HLS PIPELINE II=1
     #pragma HLS array_partition variable=input_array complete dim=1
 
@@ -50,7 +50,7 @@ binvalue_t ParallelFindMax(binvalue_t input_array[NBINS]) {
 
         COMPARATORLOOP: for (int pair=0; pair<PWRTWO(MAXIMUM_SEARCH_SIZE_ITERATIONS-iteration); pair+=2) {
             #pragma HLS UNROLL
-            comparator(values_array[pair], values_array[pair+1], index_array[pair], index_array[pair+1], larger_of_pair_array[pair>>1],larger_of_pair_index_array[pair>>1]);
+            comparator<binvalue_t,binindex_t>(values_array[pair], values_array[pair+1], index_array[pair], index_array[pair+1], larger_of_pair_array[pair>>1],larger_of_pair_index_array[pair>>1]);
         }
 
         //copy_to_p2_array<binvalue_t>(larger_of_pair_array,PWRTWO(MAXIMUM_SEARCH_SIZE_ITERATIONS-iteration-1),values_array,PWRTWO(MAXIMUM_SEARCH_SIZE_ITERATIONS-iteration-1));
@@ -61,12 +61,13 @@ binvalue_t ParallelFindMax(binvalue_t input_array[NBINS]) {
     #ifdef DEBUG
         std::cout<<"values_array[0]="<<values_array[0]<<std::endl;
     #endif
+    max_index = index_array[0];
     return values_array[0];
 }
 
 #else
 
-binvalue_t ParallelFindMax(binvalue_t input_array[NBINS]) {
+binvalue_t ParallelFindMax(binvalue_t input_array[NBINS], binindex_t &max_index) {
     #pragma HLS PIPELINE II=1
     #pragma HLS array_partition variable=input_array complete dim=1
 
@@ -103,29 +104,30 @@ binvalue_t ParallelFindMax(binvalue_t input_array[NBINS]) {
 
     L1: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE; pair+=2) {
         #pragma HLS UNROLL
-        comparator(values_array_0[pair], values_array_0[pair+1], index_array_0[pair], index_array_0[pair+1], values_array_1[pair>>1], index_array_1[pair>>1]);
+        comparator<binvalue_t,binindex_t>(values_array_0[pair], values_array_0[pair+1], index_array_0[pair], index_array_0[pair+1], values_array_1[pair>>1], index_array_1[pair>>1]);
     }
     L2: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>1; pair+=2) {
         #pragma HLS UNROLL
-        comparator(values_array_1[pair], values_array_1[pair+1], index_array_1[pair], index_array_1[pair+1], values_array_2[pair>>1], index_array_2[pair>>1]);
+        comparator<binvalue_t,binindex_t>(values_array_1[pair], values_array_1[pair+1], index_array_1[pair], index_array_1[pair+1], values_array_2[pair>>1], index_array_2[pair>>1]);
     }
     L3: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>2; pair+=2) {
         #pragma HLS UNROLL
-        comparator(values_array_2[pair], values_array_2[pair+1], index_array_2[pair], index_array_2[pair+1], values_array_3[pair>>1], index_array_3[pair>>1]);
+        comparator<binvalue_t,binindex_t>(values_array_2[pair], values_array_2[pair+1], index_array_2[pair], index_array_2[pair+1], values_array_3[pair>>1], index_array_3[pair>>1]);
     }
     L4: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>3; pair+=2) {
         #pragma HLS UNROLL
-        comparator(values_array_3[pair], values_array_3[pair+1], index_array_3[pair], index_array_3[pair+1], values_array_4[pair>>1], index_array_4[pair>>1]);
+        comparator<binvalue_t,binindex_t>(values_array_3[pair], values_array_3[pair+1], index_array_3[pair], index_array_3[pair+1], values_array_4[pair>>1], index_array_4[pair>>1]);
     }
     L5: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>4; pair+=2) {
         #pragma HLS UNROLL
-        comparator(values_array_4[pair], values_array_4[pair+1], index_array_4[pair], index_array_4[pair+1], values_array_5[pair>>1], index_array_5[pair>>1]);
+        comparator<binvalue_t,binindex_t>(values_array_4[pair], values_array_4[pair+1], index_array_4[pair], index_array_4[pair+1], values_array_5[pair>>1], index_array_5[pair>>1]);
     }
     L6: for(int pair=0; pair<MAXIMUM_SEARCH_SIZE>>5; pair+=2) {
         #pragma HLS UNROLL
-        comparator(values_array_5[pair], values_array_5[pair+1], index_array_5[pair], index_array_5[pair+1], values_array_6[pair>>1], index_array_6[pair>>1]);
+        comparator<binvalue_t,binindex_t>(values_array_5[pair], values_array_5[pair+1], index_array_5[pair], index_array_5[pair+1], values_array_6[pair>>1], index_array_6[pair>>1]);
     }
 
+    max_index = (values_array_6[0] >= values_array_6[1]) ? index_array_6[0] : index_array_6[1];
     return (values_array_6[0] >= values_array_6[1]) ? values_array_6[0] : values_array_6[1];
 
 }

@@ -22,6 +22,9 @@ int main() {
         out_hw[iRow]  = 0;
     }
 
+    //Produce a coe file from the inputs
+    produce_coe_file(in_ref);
+
     //Run the ref and hw codes
     simple_algo_stream_ref(in_ref,out_ref);
     simple_algo_stream_hw(in_hw,out_hw);
