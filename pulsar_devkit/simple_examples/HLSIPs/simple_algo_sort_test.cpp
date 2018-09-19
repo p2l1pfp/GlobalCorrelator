@@ -1,6 +1,13 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "src/simple_algo_sort.h"
+
+#define STRINGIZE(x) #x
+#define STRINGIZE_VALUE_OF(x) STRINGIZE(x)
+#define CONCAT2(a, b) a ## b
+#define CONCAT(a, b) CONCAT2(a, b)
+#define TOPFUNCTION CONCAT(SORT_METHOD, WRAPPER)
 
 //error codes
 const int SORT_ERROR = 200;
@@ -13,14 +20,18 @@ int main ()
 	uint32_t item_tmp = 0;
 	ap_uint<M> item = 0;
 
-	ifstream unsorted_data_stream("input_data.dat"); // open for reading
-	ofstream sorted_data_stream("sorted_data.dat"); // open for writing
+	string ifile = string("input_data_") + STRINGIZE_VALUE_OF(INPUT_DATA_SIZE) + ".dat";
+	string gfile = string("sorted_data_") + STRINGIZE_VALUE_OF(INPUT_DATA_SIZE) + ".gold.dat";
+	string ofile = string("sorted_data_") + STRINGIZE_VALUE_OF(INPUT_DATA_SIZE) + ".dat";
+
+	ifstream unsorted_data_stream(ifile.c_str()); // open for reading
+	ofstream sorted_data_stream(ofile.c_str()); // open for writing
 
 	//0. Get the input data
-	cout << "Reading input data" << endl;
+	cout << "Reading input data from " << ifile << " ... ";
 	if (!unsorted_data_stream.is_open())
   	{
-    	cout << "The file is unable to open!" << '\n';
+    	cout << endl << "\tThe file is unable to open!" << '\n';
     	return 1;
   	}
   	else
@@ -29,10 +40,11 @@ int main ()
 		{
 			unsorted_data_stream >> item_tmp;
 			item = item_tmp;
-			cout << item << endl;
+			//cout << item << endl;
 			input_data <<= M; // shift left M bits
 			input_data |= item; // write M LSBs
 		}
+		cout << "DONE" << endl;
 	}
 
 	//1. Fill in the work array
@@ -42,11 +54,12 @@ int main ()
 	{
 		#pragma HLS UNROLL
 		work_array[i-1] = input_data & mask; // extract M LSBs
-		input_data >>= M;					 // shift right M bits
+		input_data >>= M;                    // shift right M bits
 	}
 
 	//2. Sort the data
-	SORT_METHOD(work_array);
+	cout << "Using the top function " << STRINGIZE_VALUE_OF(TOPFUNCTION) << endl;
+	TOPFUNCTION(work_array);
 
 	//3. Write the result
 	write_res_loop: for (unsigned i = 0; i < N; i++)
@@ -65,7 +78,8 @@ int main ()
 
 	//5. Check the result
 	cout << "Checking the result" << endl;
-	if (system("diff -w sorted_data.dat sorted_data.gold.dat"))
+	string cmd = string("diff -w ") + ofile + " " + gfile;
+	if (system(cmd.c_str()))
 	{
 		cout << "FAIL: Output DOES NOT match the golden output." << endl;
 		return SORT_ERROR;
