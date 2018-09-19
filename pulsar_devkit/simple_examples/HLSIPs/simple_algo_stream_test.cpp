@@ -7,6 +7,7 @@ int main() {
     in_t               in_ref[N_COLUMNS][N_ROWS];
     out_t              out_ref[N_OUTPUTS];
     hls::stream<invec> in_hw;
+    hls::stream<out_t> out_hw_stream;
     out_t              out_hw[N_OUTPUTS];
   
     //Fill the inputs and reset the outputs
@@ -19,7 +20,6 @@ int main() {
         }
         in_hw.write(row);
         out_ref[iRow] = 0;
-        out_hw[iRow]  = 0;
     }
 
     //Produce a coe file from the inputs
@@ -27,7 +27,12 @@ int main() {
 
     //Run the ref and hw codes
     simple_algo_stream_ref(in_ref,out_ref);
-    simple_algo_stream_hw(in_hw,out_hw);
+    simple_algo_stream_hw(in_hw,out_hw_stream);
+
+    //Read the output from the stream
+    for(int iRow = 0; iRow < N_ROWS; ++iRow) {
+        out_hw[iRow] = out_hw_stream.read();
+    }
 
     //Print the input and the output
     int mismatch = 0;

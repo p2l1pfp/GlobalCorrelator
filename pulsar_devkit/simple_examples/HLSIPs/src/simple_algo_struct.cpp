@@ -6,5 +6,13 @@
 #endif
 
 void simple_algo_struct_hw( simple_struct structA, ap_int<32> &outA ) {
-	outA = structA.inA + structA.inB;
+	#ifdef __MEMBERS__
+		outA = structA.sum();
+		structA.clear();
+		outA += structA.sum();
+	#else
+		outA = structA.inA + structA.inB;
+		clear(structA);
+		outA += (structA.inA + structA.inB);
+	#endif
 }
