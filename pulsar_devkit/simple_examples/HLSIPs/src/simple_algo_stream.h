@@ -38,8 +38,14 @@ inline void produce_coe_file(in_t in_ref[N_COLUMNS][N_ROWS]) {
 	
 	for (int iRow = 0; iRow < N_ROWS; ++iRow) {
         for (int iCol = 0; iCol < N_COLUMNS; ++iCol) {
+        	bset_.reset();
+        	//printf("%.1f\n",float(in_ref[iCol][iRow]));
 	        for(int b=0; b<BITS_PER_WORD; b++) {
     	    	bset_.set(b,in_ref[iCol][iRow][b]);
+    	       	//if(iRow==0 && iCol<2) {
+        	//	printf("%i",int(in_ref[iCol][iRow][b]));
+        	//	if(b==BITS_PER_WORD-1) printf("\n");
+        	//}
     		}
     		for(int b=BITS_PER_WORD; b<BITS_PER_WORD+10; ++b) {
     			bset_.set(b,0);
@@ -51,7 +57,8 @@ inline void produce_coe_file(in_t in_ref[N_COLUMNS][N_ROWS]) {
     fclose(file_);
 }
 void simple_algo_stream_ref(in_t in_ref[N_COLUMNS][N_ROWS], out_t out_ref[N_OUTPUTS]);
-void simple_algo_stream_hw(hls::stream<invec> &in_hw, out_t out_hw[N_OUTPUTS]);
 void convert_input(hls::stream<invec> &in_hw,hls::stream<tmpvec> &out_hw);
+void simple_algo_stream_hw(hls::stream<invec> &in_hw, hls::stream<out_t> &out_hw);
+void simple_algo_stream_optimized_hw(hls::stream<invec> &in_hw, hls::stream<out_t> &out_hw);
 
 #endif

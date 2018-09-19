@@ -18,7 +18,8 @@ void convert_input(hls::stream<invec> &in_hw,hls::stream<tmpvec> &out_hw) {
 	}
 }
 
-void simple_algo_stream_hw(hls::stream<invec> &in_hw, out_t out_hw[N_OUTPUTS]) {
+void simple_algo_stream_hw(hls::stream<invec> &in_hw, hls::stream<out_t> &out_hw) {
+	//#pragma HLS ARRAY_PARTITION variable=out_hw complete
 	//Cannot use both pipeline and dataflow arguments in the same function domain
 	//#pragma HLS pipeline II=2
 	#pragma HLS dataflow
@@ -30,8 +31,27 @@ void simple_algo_stream_hw(hls::stream<invec> &in_hw, out_t out_hw[N_OUTPUTS]) {
 	readRow: for (int iRow = 0; iRow < N_ROWS; ++iRow) {
 		#pragma HLS PIPELINE II=1
 		tmpvec row = tmp_hw.read();
+		out_t sum = 0;
         sumCol: for (int iCol = 0; iCol < N_COLUMNS; ++iCol) {
-        	out_hw[iRow] += row.data[iCol];
+        	sum += row.data[iCol];
         }
+      	out_hw.write(sum);
     }
+}
+
+//One fewer stream reads
+//Conversion and reads in same step
+//Still the same overall time. I think the bottleneck is in the summation.
+void simple_algo_stream_optimized_hw(hls::stream<invec> &in_hw, hls::stream<out_t> &out_hw) {
+	#pragma HLS dataflow
+
+	LoopReadIn: for (int iRow = 0; iRow < N_ROWS; ++iRow) {
+		#pragma HLS PIPELINE II=1
+		invec row = in_hw.read();
+		out_t sum = 0;
+		LoopConvertAndSumCol: for (int iCol = 0; iCol < N_COLUMNS; ++iCol) {
+        	sum += tmp_t(row.data[iCol]);
+		}
+      	out_hw.write(sum);
+	}
 }

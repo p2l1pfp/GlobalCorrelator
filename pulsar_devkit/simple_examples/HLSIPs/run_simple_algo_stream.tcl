@@ -1,6 +1,9 @@
 # open the project, don't forget to reset
 open_project -reset proj0
 
+# top options:
+#    simple_algo_stream_hw
+#    simple_algo_stream_optimized_hw
 set_top simple_algo_stream_hw
 add_files src/simple_algo_stream.cpp
 add_files -tb simple_algo_stream_test.cpp 
