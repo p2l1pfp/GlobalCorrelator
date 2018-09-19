@@ -86,7 +86,8 @@ inline void copy_array(array_t input_array[SIZE], array_t output_array[SIZE]) {
     }
 }
 
-inline void comparator(binvalue_t bin1, binvalue_t bin2, binindex_t binindex1, binindex_t binindex2, binvalue_t &res, binindex_t &resindex) {
+template<class bv_t, class bi_t>
+inline void comparator(bv_t bin1, bv_t bin2, bi_t binindex1, bi_t binindex2, bv_t &res, bi_t &resindex) {
     if (bin1 >= bin2) {
         res = bin1;
         resindex = binindex1; 
@@ -97,9 +98,10 @@ inline void comparator(binvalue_t bin1, binvalue_t bin2, binindex_t binindex1, b
     }
 }
 
-inline void comparator4(binvalue_t bin1, binvalue_t bin2, binvalue_t bin3, binvalue_t bin4,
-                        binindex_t binindex1, binindex_t binindex2, binindex_t binindex3, binindex_t binindex4,
-                        binvalue_t &res, binindex_t &resindex) {
+template<class bv_t, class bi_t>
+inline void comparator4(bv_t bin1, bv_t bin2, bv_t bin3, bv_t bin4,
+                        bi_t binindex1, bi_t binindex2, bi_t binindex3, bi_t binindex4,
+                        bv_t &res, bi_t &resindex) {
     if (bin1 >= bin2 && bin1 >= bin3 && bin1 >= bin4) {
         res = bin1;
         resindex = binindex1;
@@ -118,6 +120,6 @@ inline void comparator4(binvalue_t bin1, binvalue_t bin2, binvalue_t bin3, binva
     }
 }
 
-binvalue_t ParallelFindMax(binvalue_t input_array[NBINS]);
-binvalue_t FourCompParallelFindMax(binvalue_t input_array[NBINS]);
-binvalue_t LinearFindMax(binvalue_t input_array[NBINS]);
+binvalue_t ParallelFindMax(binvalue_t input_array[NBINS], binindex_t &max_index);
+binvalue_t FourCompParallelFindMax(binvalue_t input_array[NBINS], binindex_t &max_index);
+binvalue_t LinearFindMax(binvalue_t input_array[NBINS], binindex_t &max_index);

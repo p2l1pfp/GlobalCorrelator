@@ -15,7 +15,7 @@ int main ()
 	ap_uint<NBITS_PER_BIN> item = 0;
 
 	//ifstream unsorted_data_stream("input_data.dat"); // open for reading
-	ifstream unsorted_data_stream("input_data_rndm72.dat"); // open for reading
+	ifstream unsorted_data_stream("input_data_72.dat"); // open for reading
 
 	//0. Get the input data
 	cout << "Reading input data" << endl;
@@ -47,7 +47,8 @@ int main ()
 	}
 
 	//2. Sort the data
-	ap_uint<NBITS_PER_BIN> maximum_result = MAX_METHOD(work_array);
+	binindex_t max_index;
+	ap_uint<NBITS_PER_BIN> maximum_result = MAX_METHOD(work_array, max_index);
 
 	//3. Check the result
 	int golden_result = 501; //511//501//168
