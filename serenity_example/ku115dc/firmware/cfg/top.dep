@@ -1,0 +1,9 @@
+include mp7_pf_wrapper.dep
+include -c components/payload emp_simple_payload.dep
+include -c test-emp-fwk:boards/ku115dc ku115dc.dep
+src ku115dc_decl.vhd 
+src -c test-mp7:components/mp7_datapath mp7_data_types.vhd
+src -c ipbus-firmware:components/ipbus_slaves ipbus_reg_v.vhd ipbus_ctrlreg_v.vhd ipbus_reg_types.vhd
+src -c ipbus-firmware:components/ipbus_core ipbus_package.vhd ipbus_fabric_sel.vhd
+setup build.tcl
+iprepo /home/pharris/Serenity/p2fwk-work/src/GlobalCorrelator_HLS/proj3-mp7-fast/solution/impl/ip/

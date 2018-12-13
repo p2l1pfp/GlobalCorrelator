@@ -1,0 +1,9 @@
+src pf_ip_wrapper.vhd
+src demultiplexer.vhd
+src demux_quad.vhd
+src multiplexer.vhd
+src mux_quad.vhd
+src pf_data_types.vhd
+src pf_constants.vhd
+#?toolset=="Vivado"? src ../ucf/mp7_pf_wrapper.tcl
+#addrtab -t mp7_payload.xml
