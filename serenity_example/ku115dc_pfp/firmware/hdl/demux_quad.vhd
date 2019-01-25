@@ -45,7 +45,7 @@ begin
       for i in N_QUAD_LINKS - 1 downto 0 loop -- Number of channels
         q(i).strobe <= '1';
         q(i).valid  <= valid;
-        q(i).data   <= d_pf(sSel * N_QUAD_LINKS + i);
+        q(i).data(31 downto 0)   <= d_pf(sSel * N_QUAD_LINKS + i);
       end loop;  -- i
     end if;
   end process serialization;

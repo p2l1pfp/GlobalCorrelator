@@ -51,7 +51,7 @@ begin
         start_pf <= (others => '0'); -- By default start is set to '0'.
         start_pf(sSel) <= '1';
         for i in N_QUAD_LINKS - 1 downto 0 loop -- Number of input channels
-          q_pf(sSel * N_QUAD_LINKS + i) <= d(i).data;  -- TODO: Latches!
+          q_pf(sSel * N_QUAD_LINKS + i) <= d(i).data(31 downto 0);  -- TODO: Latches!
         end loop;  -- i
       end if;
     end if;

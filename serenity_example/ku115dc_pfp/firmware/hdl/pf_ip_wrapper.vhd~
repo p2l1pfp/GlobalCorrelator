@@ -22,7 +22,7 @@ architecture rtl of pf_ip_wrapper is
   
 begin
 
-  pf_algo : entity work.mp7wrapped_pfalgo3_fast_0
+  pf_algo : entity work.mp7wrapped_pfalgo3_0
     port map (
       ap_clk => clk,
       ap_rst => rst,

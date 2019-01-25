@@ -101,7 +101,8 @@ begin
           done   => open,
           idle   => open,
           ready  => open,
-          output => q_pf(i)
+          output => q_pf(i),
+          z0     => '0'
         );
     end generate generate_pf_cores;
 
