@@ -6,7 +6,7 @@ cd p2fwk-work
 #ipbb add git https://:@gitlab.cern.ch:8443/p2-xware/firmware/emp-fwk.git
 #ipbb add git https://:@gitlab.cern.ch:8443/cms-cactus/firmware/mp7.git -b ephemeral/phase2-vC
 ipbb add git https://github.com/ipbus/ipbus-firmware -b task/extended-examples
-ipbb add git https://github.com/p2l1pfp/GlobalCorrelator_HLS -b mp7
+#ipbb add git https://github.com/p2l1pfp/GlobalCorrelator_HLS -b mp7
 cd src
 git clone https://:@gitlab.cern.ch:8443/p2-xware/firmware/emp-fwk.git -b serenity_dc_ku115
 git clone https://:@gitlab.cern.ch:8443/cms-cactus/firmware/mp7.git   -b ephemeral/phase2-vC
