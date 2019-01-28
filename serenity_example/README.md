@@ -34,7 +34,7 @@ cd proj/serenity_now_pfp
 
 ```
 ipbb vivado project
-cp ../src/GlobalCorrelator/serenity_example/includePFP.tcl
+cp ../src/GlobalCorrelator/serenity_example/includePFP.tcl .
 vivado -mode batch -source includePFP.tcl
 ipbb vivado synth -j4 impl -j4
 ipbb vivado package
