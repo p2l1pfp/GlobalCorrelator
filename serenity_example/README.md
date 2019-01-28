@@ -24,6 +24,7 @@ cd -
 git clone https://github.com/violatingcp/GlobalCorrelator.git
 cp -r GlobalCorrelator/serenity_example/ku115dc/     emp-fwk/projects/examples/ 
 cp -r GlobalCorrelator/serenity_example/ku115dc_pfp/ emp-fwk/projects/examples/ 
+cd ..
 ipbb proj create vivado serenity_now_pfp emp-fwk:projects/examples/ku115dc_pfp  -t top.dep
 cd proj/serenity_now_pfp
 ```
