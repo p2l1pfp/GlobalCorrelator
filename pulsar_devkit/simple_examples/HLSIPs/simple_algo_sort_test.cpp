@@ -16,13 +16,13 @@ using namespace std;
 
 int main ()
 {
-	ap_uint<N*M> input_data, sorted_data;
+	ap_uint<REAL_INPUT_DATA_SIZE*M> input_data, sorted_data;
 	uint32_t item_tmp = 0;
 	ap_uint<M> item = 0;
 
-	string ifile = string("input_data_") + STRINGIZE_VALUE_OF(INPUT_DATA_SIZE) + ".dat";
-	string gfile = string("sorted_data_") + STRINGIZE_VALUE_OF(INPUT_DATA_SIZE) + ".gold.dat";
-	string ofile = string("sorted_data_") + STRINGIZE_VALUE_OF(INPUT_DATA_SIZE) + ".dat";
+	string ifile = string("input_data_") + STRINGIZE_VALUE_OF(REAL_INPUT_DATA_SIZE) + ".dat";
+	string gfile = string("sorted_data_") + STRINGIZE_VALUE_OF(REAL_INPUT_DATA_SIZE) + ".gold.dat";
+	string ofile = string("sorted_data_") + STRINGIZE_VALUE_OF(REAL_INPUT_DATA_SIZE) + ".dat";
 
 	ifstream unsorted_data_stream(ifile.c_str()); // open for reading
 	ofstream sorted_data_stream(ofile.c_str()); // open for writing
@@ -36,7 +36,7 @@ int main ()
   	}
   	else
   	{
-		for (unsigned i = 0; i < N; i++)
+		for (unsigned i = 0; i < REAL_INPUT_DATA_SIZE; i++)
 		{
 			unsorted_data_stream >> item_tmp;
 			item = item_tmp;
@@ -48,21 +48,32 @@ int main ()
 	}
 
 	//1. Fill in the work array
-	ap_uint<M> work_array[N];
+	ap_uint<M> work_array[INPUT_DATA_SIZE];
 	ap_uint<M> mask = ~0;
-	init_loop: for (unsigned i = N; i > 0; i--)
+	init_loop: for (unsigned i = REAL_INPUT_DATA_SIZE; i >0 ; i--)
 	{
 		#pragma HLS UNROLL
 		work_array[i-1] = input_data & mask; // extract M LSBs
 		input_data >>= M;                    // shift right M bits
 	}
-
+        init_loop2: for (unsigned i = INPUT_DATA_SIZE; i > REAL_INPUT_DATA_SIZE; i--)
+	  {
+	    #pragma HLS UNROLL
+	    work_array[i-1] = 0;
+	  } 
+	for (unsigned i = 0; i < INPUT_DATA_SIZE; i++){
+	  std::cout << work_array[i] << "\t";
+	}
 	//2. Sort the data
 	cout << "Using the top function " << STRINGIZE_VALUE_OF(TOPFUNCTION) << endl;
 	TOPFUNCTION(work_array);
 
+	for (unsigned i = 0; i < INPUT_DATA_SIZE; i++){
+	  std::cout << work_array[i] << "\t";
+	}
+
 	//3. Write the result
-	write_res_loop: for (unsigned i = 0; i < N; i++)
+	write_res_loop: for (unsigned i = INPUT_DATA_SIZE-REAL_INPUT_DATA_SIZE; i < INPUT_DATA_SIZE; i++)
 	{
 		#pragma HLS UNROLL
 		sorted_data <<= M; // shift left M bits
@@ -70,7 +81,7 @@ int main ()
 	}
 
 	//4. Save the result
-	for (unsigned i = 0; i < N; i++)
+	for (unsigned i = 0; i < REAL_INPUT_DATA_SIZE; i++)
 	{
 		sorted_data_stream << (sorted_data & mask) << endl; // extract M LSBs
 		sorted_data >>= M; // shift right M bits

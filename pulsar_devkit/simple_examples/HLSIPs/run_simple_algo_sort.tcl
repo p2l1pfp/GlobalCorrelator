@@ -19,12 +19,13 @@ set wrapper OptimizedInline
 #    72    input_data_72.dat   sorted_data_72.gold.dat
 #    128   input_data_128.dat  sorted_data_128.gold.dat  10          8                      1
 #    200   input_data_200.dat  sorted_data_200.gold.dat
+set realInputDataSize 128
 set inputDataSize 128
 set_top ${sortMethod}${wrapper}
-add_files src/${sortMethod}.cpp -cflags "-DINPUT_DATA_SIZE=${inputDataSize}"
-add_files -tb simple_algo_sort_test.cpp -cflags "-DSORT_METHOD=${sortMethod} -DWRAPPER=${wrapper} -DINPUT_DATA_SIZE=${inputDataSize}"
-add_files -tb input_data_${inputDataSize}.dat
-add_files -tb sorted_data_${inputDataSize}.gold.dat
+add_files src/${sortMethod}.cpp -cflags "-DINPUT_DATA_SIZE=${inputDataSize} -DREAL_INPUT_DATA_SIZE=${realInputDataSize}"
+add_files -tb simple_algo_sort_test.cpp -cflags "-DSORT_METHOD=${sortMethod} -DWRAPPER=${wrapper} -DINPUT_DATA_SIZE=${inputDataSize} -DREAL_INPUT_DATA_SIZE=${realInputDataSize}"
+add_files -tb input_data_${realInputDataSize}.dat
+add_files -tb sorted_data_${realInputDataSize}.gold.dat
 
 # reset the solution
 open_solution -reset "solution1_${sortMethod}${wrapper}"

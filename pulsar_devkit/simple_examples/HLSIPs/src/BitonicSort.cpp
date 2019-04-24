@@ -27,7 +27,7 @@ template<class array_t, class index_t, class mask_t>
 void elementLoop(array_t a[], index_t j, mask_t mask) {
     #pragma HLS INLINE
     LOOP_OVER_ELEMENTS: for (int i=0; i<N; i++) {
-#if (INPUT_DATA_SIZE>=128)
+#if (INPUT_DATA_SIZE>=256)
         #pragma HLS UNROLL skip_exit_check //factor=32
 #endif
         int ij=i^j;
@@ -197,6 +197,11 @@ void BitonicSortOptimizedInline(ap_uint<M> work_array[N]) {
     LOOP128: for (j=64; j>0; j=j>>1) {
         elementLoop(work_array,j,128);
     }
+#if (INPUT_DATA_SIZE>=256)
+    LOOP256: for (j=128; j>0; j=j>>1) {
+        elementLoop(work_array,j,256);
+    }
+#endif
 #endif
 #endif
 #endif
